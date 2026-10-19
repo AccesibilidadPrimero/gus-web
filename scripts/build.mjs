@@ -28,11 +28,12 @@ const page = (code) => {
     .join("\n");
 
   // La primera imagen se carga al momento; el resto, bajo demanda desde el JS.
+  // Fotogramas con texto alternativo. La primera se carga al momento; el resto, bajo demanda.
   const backgrounds = site.backgrounds
-    .map((src, i) =>
+    .map(({ src, alt }, i) =>
       i === 0
-        ? `    <img src="${src}" alt="" width="1920" height="816" fetchpriority="high" class="is-active">`
-        : `    <img data-src="${src}" alt="" width="1920" height="816">`
+        ? `    <img class="still is-active" src="${src}" alt="${esc(alt[code])}" width="1920" height="816" fetchpriority="high">`
+        : `    <img class="still" src="${src}" alt="${esc(alt[code])}" width="1920" height="816" loading="lazy">`
     )
     .join("\n");
 
@@ -52,7 +53,7 @@ ${alternates}
   <meta property="og:title" content="${esc(t.title)}">
   <meta property="og:description" content="${esc(t.description)}">
   <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${url.slice(0, -1)}${site.backgrounds[0]}">
+  <meta property="og:image" content="${url.slice(0, -1)}${site.backgrounds[0].src}">
   <meta property="og:locale" content="${{ ca: "ca_ES", es: "es_ES", en: "en_GB" }[code] || code}">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.png" type="image/png">
@@ -60,13 +61,10 @@ ${alternates}
   <link rel="preload" href="/assets/fonts/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css">
   <script src="/assets/js/slideshow.js" defer></script>
+  <script src="/assets/js/card-toggle.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">${esc(t.skip)}</a>
-
-  <div class="backdrop" aria-hidden="true">
-${backgrounds}
-  </div>
 
   <header class="site-header">
     <nav class="lang" aria-label="${esc(t.langNav)}">
@@ -74,11 +72,18 @@ ${backgrounds}
 ${langLinks}
       </ul>
     </nav>
-    <button type="button" class="slideshow-control" hidden data-pause="${esc(t.pause)}" data-play="${esc(t.play)}">
-      <svg class="icon-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
-      <svg class="icon-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false" hidden><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>
-      <span class="slideshow-label visually-hidden">${esc(t.pause)}</span>
-    </button>
+    <div class="controls">
+      <button type="button" class="control-btn card-toggle" hidden aria-controls="main" data-hide="${esc(t.hideText)}" data-show="${esc(t.showText)}">
+        <svg class="icon-eye" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1.5 12S5.5 4.5 12 4.5 22.5 12 22.5 12 18.5 19.5 12 19.5 1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3.5"/></svg>
+        <svg class="icon-text" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        <span class="card-toggle-label visually-hidden">${esc(t.hideText)}</span>
+      </button>
+      <button type="button" class="control-btn slideshow-control" hidden data-pause="${esc(t.pause)}" data-play="${esc(t.play)}">
+        <svg class="icon-pause fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
+        <svg class="icon-play fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false" hidden><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>
+        <span class="slideshow-label visually-hidden">${esc(t.pause)}</span>
+      </button>
+    </div>
   </header>
 
   <div class="layout">
@@ -94,6 +99,17 @@ ${paragraphs}
       </section>
     </main>
   </div>
+
+  <section class="backdrop" aria-labelledby="stills-title" data-strip-label="${esc(t.stripLabel)}">
+    <h2 id="stills-title" class="visually-hidden">${esc(t.stillsHeading)}</h2>
+    <!-- Solo en móvil: primer panel del carrusel (repite el logo, por eso es decorativo) -->
+    <div class="strip-intro" aria-hidden="true">
+      <img src="/assets/img/logo/${code}-stack-color.webp" alt="" width="1000" height="${{ ca: 571, es: 572, en: 589 }[code]}">
+      <p class="release">${esc(t.release)}</p>
+      <p class="swipe-hint">${esc(t.swipeHint)} <span>→</span></p>
+    </div>
+${backgrounds}
+  </section>
 
 </body>
 </html>

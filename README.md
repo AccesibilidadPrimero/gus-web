@@ -16,7 +16,7 @@ wrangler.jsonc        Configuración del Worker
 
 ## Cambiar textos o imágenes
 
-1. Edita `content/site.json` (textos) o añade imágenes en `public/assets/img/bg/` y su ruta en `backgrounds`.
+1. Edita `content/site.json` (textos) o añade imágenes en `public/assets/img/bg/` y su entrada en `backgrounds` (`src` y `alt` en los tres idiomas).
 2. Ejecuta `npm run build` para regenerar las tres páginas.
 3. Haz commit y push: Cloudflare despliega solo.
 
@@ -57,7 +57,8 @@ Se definen en `content/site.json` (`domain`). El Worker y las páginas los leen 
 - Texto siempre sobre fondo sólido Blau nit (13,5:1). Nada de texto sobre la imagen.
 - El pase de imágenes se puede pausar (WCAG 2.2.2) y el botón está al principio del orden de tabulación.
 - Con "reducir movimiento" activado, las imágenes no cambian solas.
-- Las imágenes de fondo son decorativas (`alt=""`); el logotipo es el `h1` con el título como texto alternativo.
+- Cada fotograma tiene texto alternativo en su idioma y se lee después de la sinopsis, como sección "Fotogramas de la película". El logotipo es el `h1` con el título como texto alternativo.
+- El botón de ojo oculta la tarjeta para ver la imagen completa (Escape la vuelve a mostrar). El texto nunca se oculta solo.
 - Cada idioma es una página real con su `lang`, enlaces de idioma con `lang` y `hreflang`, y enlace "Saltar al contenido".
 - Fuentes autoalojadas (Fredoka 600 y Atkinson Hyperlegible Next 400/700): sin llamadas a Google Fonts.
 - Funciona sin JavaScript: se ve la primera imagen y todo el contenido.

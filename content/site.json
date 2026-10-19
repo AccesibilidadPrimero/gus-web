@@ -1,16 +1,86 @@
 {
   "defaultLanguage": "es",
   "backgrounds": [
-    "/assets/img/bg/01.webp",
-    "/assets/img/bg/02.webp",
-    "/assets/img/bg/03.webp",
-    "/assets/img/bg/04.webp",
-    "/assets/img/bg/05.webp",
-    "/assets/img/bg/06.webp",
-    "/assets/img/bg/07.webp",
-    "/assets/img/bg/08.webp",
-    "/assets/img/bg/09.webp",
-    "/assets/img/bg/10.webp"
+    {
+      "src": "/assets/img/bg/01.webp",
+      "alt": {
+        "ca": "Cinc cadells treuen el cap per sota d’una grada de fusta; a dalt es veuen les sabatilles d’uns nens.",
+        "es": "Cinco cachorros asoman la cabeza bajo una grada de madera; arriba se ven las zapatillas de unos niños.",
+        "en": "Five puppies peek out from under a wooden bleacher, with children’s sneakers dangling above."
+      }
+    },
+    {
+      "src": "/assets/img/bg/02.webp",
+      "alt": {
+        "ca": "Una nena amb pitet texà camina amb un gos petit amb arnès cap a un edifici de maó vermell, presidit per l’estàtua d’un gos pigall.",
+        "es": "Una niña con peto vaquero camina con un perro pequeño con arnés hacia un edificio de ladrillo rojo presidido por la estatua de un perro guía.",
+        "en": "A girl in denim overalls walks a small dog in a harness towards a red-brick building with a guide dog statue at its entrance."
+      }
+    },
+    {
+      "src": "/assets/img/bg/03.webp",
+      "alt": {
+        "ca": "Una nena amb samarreta de ratlles grogues acaricia un cadell d’orelles grans que camina per sobre d’un mur.",
+        "es": "Una niña con camiseta de rayas amarillas acaricia a un cachorro de orejas grandes que camina sobre un muro.",
+        "en": "A girl in a yellow striped T-shirt strokes a big-eared puppy walking along the top of a wall."
+      }
+    },
+    {
+      "src": "/assets/img/bg/04.webp",
+      "alt": {
+        "ca": "El reflex d’un cadell en un vidre es transforma en un gos daurat amb arnès de gos pigall.",
+        "es": "El reflejo de un cachorro en un cristal se transforma en un perro dorado con arnés de perro guía.",
+        "en": "A puppy’s reflection in a glass pane turns into a golden dog wearing a guide dog harness."
+      }
+    },
+    {
+      "src": "/assets/img/bg/05.webp",
+      "alt": {
+        "ca": "Un cadell, d’esquena, contempla una paret plena de retrats emmarcats de gossos pigall amb les seves persones, il·luminada per un raig de llum.",
+        "es": "Un cachorro, de espaldas, contempla una pared llena de retratos enmarcados de perros guía con sus personas, iluminada por un rayo de luz.",
+        "en": "A puppy, seen from behind, gazes at a wall covered in framed portraits of guide dogs with their people, lit by a beam of light."
+      }
+    },
+    {
+      "src": "/assets/img/bg/06.webp",
+      "alt": {
+        "ca": "Un cadell amb arnès corre estirant una galleda amb una fregona mentre un cadell daurat el mira asseguda.",
+        "es": "Un cachorro con arnés corre tirando de un cubo con fregona mientras un cachorro dorado lo mira sentado.",
+        "en": "A puppy in a harness runs pulling a mop bucket while a golden puppy sits and watches."
+      }
+    },
+    {
+      "src": "/assets/img/bg/07.webp",
+      "alt": {
+        "ca": "Un gos adult i un cadell caminen per un descampat a la posta de sol.",
+        "es": "Un perro adulto y un cachorro caminan por un descampado al atardecer.",
+        "en": "An adult dog and a puppy walk across a vacant lot at sunset."
+      }
+    },
+    {
+      "src": "/assets/img/bg/08.webp",
+      "alt": {
+        "ca": "Un cadell avança entre cons taronja en un gimnàs d’entrenament.",
+        "es": "Un cachorro avanza entre conos naranjas en un gimnasio de entrenamiento.",
+        "en": "A puppy weaves between orange cones in a training gym."
+      }
+    },
+    {
+      "src": "/assets/img/bg/09.webp",
+      "alt": {
+        "ca": "Primer pla d’un cadell d’orelles grans que mira amunt amb els ulls brillants.",
+        "es": "Primer plano de un cachorro de orejas grandes que mira hacia arriba con los ojos brillantes.",
+        "en": "Close-up of a big-eared puppy looking up with shining eyes."
+      }
+    },
+    {
+      "src": "/assets/img/bg/10.webp",
+      "alt": {
+        "ca": "Un gos daurat abraça un cadell, que tanca els ulls, al costat d’una finestra amb llum de capvespre.",
+        "es": "Un perro dorado abraza a un cachorro, que cierra los ojos, junto a una ventana con luz de atardecer.",
+        "en": "A golden dog hugs a puppy, who closes its eyes, beside a window glowing with evening light."
+      }
+    }
   ],
   "languages": {
     "ca": {
@@ -28,7 +98,12 @@
       ],
       "pause": "Atura les imatges",
       "play": "Reprèn les imatges",
-      "credit": "Web accessible per"
+      "credit": "Web accessible per",
+      "stillsHeading": "Fotogrames de la pel·lícula",
+      "hideText": "Amaga el text per veure la imatge",
+      "showText": "Mostra el text",
+      "swipeHint": "Llisca per veure les imatges",
+      "stripLabel": "Fotogrames de la pel·lícula. Desplaça’t horitzontalment."
     },
     "es": {
       "domain": "guselperroguia.com",
@@ -45,7 +120,12 @@
       ],
       "pause": "Pausar imágenes",
       "play": "Reanudar imágenes",
-      "credit": "Web accesible por"
+      "credit": "Web accesible por",
+      "stillsHeading": "Fotogramas de la película",
+      "hideText": "Ocultar el texto para ver la imagen",
+      "showText": "Mostrar el texto",
+      "swipeHint": "Desliza para ver las imágenes",
+      "stripLabel": "Fotogramas de la película. Desplázate en horizontal."
     },
     "en": {
       "domain": "gustheguidedog.com",
@@ -62,7 +142,12 @@
       ],
       "pause": "Pause images",
       "play": "Play images",
-      "credit": "Accessible website by"
+      "credit": "Accessible website by",
+      "stillsHeading": "Film stills",
+      "hideText": "Hide the text to see the image",
+      "showText": "Show the text",
+      "swipeHint": "Swipe to see the images",
+      "stripLabel": "Film stills. Scroll horizontally."
     }
   }
 }

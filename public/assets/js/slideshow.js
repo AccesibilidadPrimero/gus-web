@@ -1,14 +1,15 @@
-// Pase de imágenes de fondo con fundido.
+// Escritorio: pase de imágenes de fondo con fundido.
 // - Se puede pausar (WCAG 2.2.2 Pausar, detener, ocultar).
 // - Con "reducir movimiento" activo no arranca solo.
-// - Las imágenes se cargan de una en una, justo antes de mostrarse.
+// Móvil y tablet vertical: carrusel horizontal que la persona recorre con el dedo.
+// Ahí no hay pase automático ni botón de pausa.
 (() => {
   const INTERVAL = 7000;
   const backdrop = document.querySelector(".backdrop");
   const button = document.querySelector(".slideshow-control");
   if (!backdrop || !button) return;
 
-  const slides = Array.from(backdrop.querySelectorAll("img"));
+  const slides = Array.from(backdrop.querySelectorAll("img.still"));
   if (slides.length < 2) return; // con una sola imagen no hay pase ni botón
 
   const label = button.querySelector(".slideshow-label");
@@ -57,11 +58,28 @@
     render();
   };
 
-  button.hidden = false;
   button.addEventListener("click", () => (playing() ? stop() : play()));
 
-  load(slides[1]);
-  if (!reduceMotion.matches) play(); else render();
+  // Cambio entre modo escritorio (pase) y modo móvil (carrusel)
+  const mobile = window.matchMedia("(max-width: 59.99rem)");
+  const applyMode = () => {
+    if (mobile.matches) {
+      stop();
+      button.hidden = true;
+      // El carrusel se puede recorrer también con teclado (flechas)
+      backdrop.setAttribute("tabindex", "0");
+      backdrop.setAttribute("aria-label", backdrop.dataset.stripLabel);
+      backdrop.removeAttribute("aria-labelledby");
+    } else {
+      button.hidden = false;
+      backdrop.removeAttribute("tabindex");
+      backdrop.removeAttribute("aria-label");
+      backdrop.setAttribute("aria-labelledby", "stills-title");
+      if (!reduceMotion.matches) play(); else render();
+    }
+  };
+  applyMode();
+  mobile.addEventListener?.("change", applyMode);
 
   reduceMotion.addEventListener?.("change", (e) => e.matches && stop());
 })();

@@ -97,19 +97,19 @@ a:hover { text-decoration-thickness: 0.12em; }
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: var(--nit);
+  background: #000;                 /* bandas negras: la imagen mantiene su formato */
 }
-.backdrop img {
+.backdrop img.still {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: 50% 50%;
   opacity: 0;
   transition: opacity var(--fade) ease-in-out;
 }
-.backdrop img.is-active { opacity: 1; }
+.backdrop img.still.is-active { opacity: 1; }
 
 /* ---------- Cabecera: idiomas ---------- */
 .site-header {
@@ -129,12 +129,6 @@ a:hover { text-decoration-thickness: 0.12em; }
   border-radius: 999px;
 }
 .lang li { display: flex; align-items: center; }
-.lang li + li::before {
-  content: "-" / "";              /* separador visual, mudo para lectores de pantalla */
-  padding: 0 0.15rem;
-  color: var(--crema);
-  font-weight: 700;
-}
 .lang a {
   display: inline-flex;
   align-items: center;
@@ -169,6 +163,10 @@ a:hover { text-decoration-thickness: 0.12em; }
   border-radius: var(--radius);
   box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.35);
 }
+
+/* Ocultar la tarjeta para ver la imagen completa (botón de ojo) */
+.card { transition: opacity 300ms ease, visibility 0s linear 0s; }
+.card.is-hidden { opacity: 0; visibility: hidden; transition: opacity 300ms ease, visibility 0s linear 300ms; }
 
 .title { margin: 0; }
 .title img { width: min(100%, 26rem); }
@@ -206,11 +204,15 @@ a:hover { text-decoration-thickness: 0.12em; }
 }
 
 /* ---------- Control del pase ---------- */
-.slideshow-control {
+.controls {
   position: fixed;
   right: var(--gutter);
   bottom: var(--gutter);
   z-index: 2;
+  display: flex;
+  gap: 0.5rem;
+}
+.control-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -221,26 +223,91 @@ a:hover { text-decoration-thickness: 0.12em; }
   color: var(--crema);
   border: 2px solid var(--crema);
   border-radius: 999px;
-  font: 700 1rem/1 var(--font-text);
   cursor: pointer;
 }
-.slideshow-control:hover { background: var(--guia); }
-.slideshow-control[hidden] { display: none; }
-.slideshow-control svg { width: 1.125rem; height: 1.125rem; fill: currentColor; }
-.slideshow-control svg[hidden] { display: none; }
+.control-btn:hover { background: var(--guia); }
+.control-btn[hidden] { display: none; }
+.control-btn svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.control-btn svg.fill { width: 1.125rem; height: 1.125rem; fill: currentColor; stroke: none; }
+.control-btn svg[hidden] { display: none; }
 
 /* ---------- Escritorio: tarjeta a la izquierda, imagen visible ---------- */
 @media (min-width: 60rem) {
   body { display: grid; grid-template-rows: auto 1fr; }
   .layout { display: flex; align-items: flex-end; }
-  .backdrop img { object-position: 60% 50%; }
 }
 
 /* ---------- Móvil: la imagen asoma arriba ---------- */
+.strip-intro { display: none; }
+
+/* ---------- Móvil y tablet vertical: carrusel horizontal a pantalla completa ---------- */
 @media (max-width: 59.99rem) {
-  .layout { padding-top: 32vh; }
-  .card { margin-inline: auto; }
-  .slideshow-control { position: absolute; top: calc(var(--gutter) + 60px); right: var(--gutter); bottom: auto; }
+  body { display: flex; flex-direction: column; }
+
+  /* Idiomas flotando sobre el carrusel */
+  .site-header { position: absolute; top: 0; right: 0; z-index: 3; padding: 1rem; }
+  .card-toggle { display: none; }          /* aquí la imagen ya se ve entera */
+
+  /* El fondo pasa a ser una tira de fotogramas que se recorre con el dedo */
+  .backdrop {
+    order: 1;
+    position: relative;
+    inset: auto;
+    display: flex;
+    gap: 4px;
+    height: 100vh;
+    height: 100svh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .backdrop::-webkit-scrollbar { display: none; }
+  .backdrop:focus-visible { outline-offset: -4px; }
+  .backdrop img.still {
+    position: static;
+    flex: none;
+    width: auto;
+    height: 100%;
+    max-width: none;
+    opacity: 1;
+    object-fit: cover;
+    transition: none;
+  }
+
+  /* Primer panel: logo + estreno. Deja asomar el primer fotograma a la derecha */
+  .strip-intro {
+    flex: none;
+    width: 78vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.25rem;
+    padding: 5rem 1.5rem 2rem;
+    background: var(--nit);
+  }
+  .strip-intro img { width: 100%; max-width: 28rem; }
+  .strip-intro .release { margin: 0; align-self: flex-start; }
+  .swipe-hint {
+    margin: 0.5rem 0 0;
+    color: var(--crema);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .swipe-hint span { display: inline-block; margin-left: 0.25rem; }
+
+  /* Segunda pantalla: la sinopsis. El logo y el estreno ya están en el carrusel */
+  .layout { order: 2; padding: 1rem; background: var(--nit); }
+  .card { margin-inline: auto; box-shadow: none; padding-inline: 0.5rem; }
+  .card .title, .card .release { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .synopsis h2 { margin-top: 0.5rem; }
+}
+
+@media (max-width: 59.99rem) and (prefers-reduced-motion: no-preference) {
+  .swipe-hint span { animation: nudge 1.6s ease-in-out 3; }
+  @keyframes nudge { 50% { transform: translateX(6px); } }
+}
 }
 
 /* Movimiento reducido: sin fundidos automáticos (el JS tampoco arranca solo) */
@@ -251,6 +318,8 @@ a:hover { text-decoration-thickness: 0.12em; }
 
 /* Modo de alto contraste forzado (Windows) */
 @media (forced-colors: active) {
-  .card, .lang ul, .release, .slideshow-control { border: 2px solid CanvasText; }
+  .card, .lang ul, .release, .control-btn { border: 2px solid CanvasText; }
+}
+@media (forced-colors: active) and (min-width: 60rem) {
   .backdrop { display: none; }
 }
