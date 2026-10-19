@@ -131,3 +131,9 @@ for (const code of codes) {
   await writeFile(new URL("index.html", dir), page(code));
   console.log(`✓ public/${code}/index.html`);
 }
+
+// La página 404 usa la misma hoja de estilos: actualiza su huella
+const notFound = new URL("public/404.html", root);
+const html404 = await readFile(notFound, "utf8");
+await writeFile(notFound, html404.replace(/\/assets\/css\/site\.css(\?v=[\w]+)?/, asset["/assets/css/site.css"]));
+console.log("✓ public/404.html");
