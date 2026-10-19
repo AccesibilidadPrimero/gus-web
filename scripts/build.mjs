@@ -11,7 +11,7 @@ const codes = Object.keys(site.languages);
 const fingerprint = async (path) =>
   createHash("sha256").update(await readFile(new URL(`public${path}`, root))).digest("hex").slice(0, 10);
 const asset = {};
-for (const path of ["/assets/css/site.css", "/assets/js/slideshow.js", "/assets/js/card-toggle.js"]) {
+for (const path of ["/assets/css/site.css", "/assets/js/slideshow.js", "/assets/js/card-toggle.js", ...site.backgrounds.map((b) => b.src)]) {
   asset[path] = `${path}?v=${await fingerprint(path)}`;
 }
 
@@ -41,8 +41,8 @@ const page = (code) => {
   const backgrounds = site.backgrounds
     .map(({ src, alt }, i) =>
       i === 0
-        ? `    <img class="still is-active" src="${src}" alt="${esc(alt[code])}" width="1920" height="816" fetchpriority="high">`
-        : `    <img class="still" src="${src}" alt="${esc(alt[code])}" width="1920" height="816" loading="lazy">`
+        ? `    <img class="still is-active" src="${asset[src]}" alt="${esc(alt[code])}" width="2048" height="870" fetchpriority="high">`
+        : `    <img class="still" src="${asset[src]}" alt="${esc(alt[code])}" width="2048" height="870" loading="lazy">`
     )
     .join("\n");
 
@@ -130,7 +130,7 @@ ${backgrounds}
       <div class="card loop-clone" aria-hidden="true" inert>
 ${cardInner(false)}
       </div>
-      <img class="loop-clone" src="${site.backgrounds[0].src}" alt="" width="1920" height="816" loading="lazy" aria-hidden="true">
+      <img class="loop-clone" src="${site.backgrounds[0].src}" alt="" width="2048" height="870" loading="lazy" aria-hidden="true">
     </section>
   </div>
 
