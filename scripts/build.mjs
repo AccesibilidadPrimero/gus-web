@@ -1,10 +1,19 @@
 // Genera public/{ca,es,en}/index.html a partir de content/site.json.
 // Uso: npm run build
 import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { createHash } from "node:crypto";
 
 const root = new URL("../", import.meta.url);
 const site = JSON.parse(await readFile(new URL("content/site.json", root), "utf8"));
 const codes = Object.keys(site.languages);
+
+// Huella del contenido: si un CSS o JS cambia, cambia su URL y el navegador lo vuelve a descargar
+const fingerprint = async (path) =>
+  createHash("sha256").update(await readFile(new URL(`public${path}`, root))).digest("hex").slice(0, 10);
+const asset = {};
+for (const path of ["/assets/css/site.css", "/assets/js/slideshow.js", "/assets/js/card-toggle.js"]) {
+  asset[path] = `${path}?v=${await fingerprint(path)}`;
+}
 
 const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -59,9 +68,9 @@ ${alternates}
   <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-next-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css">
-  <script src="/assets/js/slideshow.js" defer></script>
-  <script src="/assets/js/card-toggle.js" defer></script>
+  <link rel="stylesheet" href="${asset["/assets/css/site.css"]}">
+  <script src="${asset["/assets/js/slideshow.js"]}" defer></script>
+  <script src="${asset["/assets/js/card-toggle.js"]}" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">${esc(t.skip)}</a>
