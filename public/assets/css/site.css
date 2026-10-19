@@ -1,0 +1,256 @@
+/* GUS, el perro guía · Web provisional
+   Paleta y tipografía según la guía de estilo:
+   https://gus-guia-estil.accesibilidadprimero.com/ */
+
+@font-face {
+  font-family: "Fredoka";
+  src: url("../fonts/fredoka-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("../fonts/atkinson-hyperlegible-next-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("../fonts/atkinson-hyperlegible-next-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --nit: #172b46;      /* Blau nit / Azul noche */
+  --crema: #fff8e8;    /* Crema càlid */
+  --guia: #2457a7;     /* Blau guia */
+  --taronja: #f28c45;  /* Taronja aventura */
+  --verd: #386447;     /* Verd parc */
+  --groc: #f2c44e;     /* Groc sol */
+
+  --font-display: "Fredoka", "Atkinson Hyperlegible Next", system-ui, sans-serif;
+  --font-text: "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --fade: 1600ms;
+  --radius: 1.5rem;
+  --gutter: clamp(1rem, 3vw, 2.5rem);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--nit);
+  color: var(--crema);
+  font-family: var(--font-text);
+  font-size: 1.125rem;   /* 18 px, criterio de lectura de la guía */
+  line-height: 1.5;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--crema); text-decoration: underline; text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 0.12em; }
+
+:focus-visible {
+  outline: 3px solid var(--groc);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Salta al contenido */
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -100px;
+  z-index: 10;
+  padding: 0.75rem 1rem;
+  background: var(--crema);
+  color: var(--nit);
+  font-weight: 700;
+  border-radius: 0.75rem;
+}
+.skip-link:focus { top: var(--gutter); }
+
+/* ---------- Fondo con fundidos ---------- */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--nit);
+}
+.backdrop img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  opacity: 0;
+  transition: opacity var(--fade) ease-in-out;
+}
+.backdrop img.is-active { opacity: 1; }
+
+/* ---------- Cabecera: idiomas ---------- */
+.site-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--gutter);
+}
+.lang ul {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0.3rem;
+  list-style: none;
+  background: var(--nit);
+  border-radius: 999px;
+}
+.lang li { display: flex; align-items: center; }
+.lang li + li::before {
+  content: "-" / "";              /* separador visual, mudo para lectores de pantalla */
+  padding: 0 0.15rem;
+  color: var(--crema);
+  font-weight: 700;
+}
+.lang a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+}
+.lang a:hover { text-decoration: underline; }
+.lang a[aria-current="page"] {
+  background: var(--crema);
+  color: var(--nit);
+}
+
+/* ---------- Contenido ---------- */
+.layout {
+  position: relative;
+  z-index: 1;
+  padding: 0 var(--gutter) var(--gutter);
+}
+
+.card {
+  width: 100%;
+  max-width: 36rem;
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  background: var(--nit);           /* fondo sólido: 13,5:1 con el crema */
+  border-radius: var(--radius);
+  box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.35);
+}
+
+.title { margin: 0; }
+.title img { width: min(100%, 26rem); }
+
+.release {
+  display: inline-block;
+  margin: 1.25rem 0 0;
+  padding: 0.45rem 1.1rem 0.5rem;
+  background: var(--groc);          /* Blau nit sobre Groc sol: 8,69:1 */
+  color: var(--nit);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  line-height: 1.15;
+  border-radius: 0.75rem;
+  transform: rotate(-2deg);
+}
+
+.synopsis h2 {
+  margin: 2rem 0 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 1.3rem + 0.8vw, 1.875rem);
+  line-height: 1.2;
+  color: var(--taronja);            /* Taronja sobre Blau nit: 5,86:1 */
+}
+.synopsis p { margin: 0 0 1em; max-width: 65ch; }
+.synopsis p:last-child { margin-bottom: 0; }
+
+.credit {
+  margin: 2rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgb(255 248 232 / 0.25);
+  font-size: 1rem;
+}
+
+/* ---------- Control del pase ---------- */
+.slideshow-control {
+  position: fixed;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: var(--nit);
+  color: var(--crema);
+  border: 2px solid var(--crema);
+  border-radius: 999px;
+  font: 700 1rem/1 var(--font-text);
+  cursor: pointer;
+}
+.slideshow-control:hover { background: var(--guia); }
+.slideshow-control[hidden] { display: none; }
+.slideshow-control svg { width: 1.125rem; height: 1.125rem; fill: currentColor; }
+.slideshow-control svg[hidden] { display: none; }
+
+/* ---------- Escritorio: tarjeta a la izquierda, imagen visible ---------- */
+@media (min-width: 60rem) {
+  body { display: grid; grid-template-rows: auto 1fr; }
+  .layout { display: flex; align-items: flex-end; }
+  .backdrop img { object-position: 60% 50%; }
+}
+
+/* ---------- Móvil: la imagen asoma arriba ---------- */
+@media (max-width: 59.99rem) {
+  .layout { padding-top: 32vh; }
+  .card { margin-inline: auto; }
+  .slideshow-control { position: absolute; top: calc(var(--gutter) + 60px); right: var(--gutter); bottom: auto; }
+}
+
+/* Movimiento reducido: sin fundidos automáticos (el JS tampoco arranca solo) */
+@media (prefers-reduced-motion: reduce) {
+  :root { --fade: 0ms; }
+  .release { transform: none; }
+}
+
+/* Modo de alto contraste forzado (Windows) */
+@media (forced-colors: active) {
+  .card, .lang ul, .release, .slideshow-control { border: 2px solid CanvasText; }
+  .backdrop { display: none; }
+}

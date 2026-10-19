@@ -1,0 +1,68 @@
+{
+  "defaultLanguage": "es",
+  "backgrounds": [
+    "/assets/img/bg/01.webp",
+    "/assets/img/bg/02.webp",
+    "/assets/img/bg/03.webp",
+    "/assets/img/bg/04.webp",
+    "/assets/img/bg/05.webp",
+    "/assets/img/bg/06.webp",
+    "/assets/img/bg/07.webp",
+    "/assets/img/bg/08.webp",
+    "/assets/img/bg/09.webp",
+    "/assets/img/bg/10.webp"
+  ],
+  "languages": {
+    "ca": {
+      "domain": "guselgospigall.com",
+      "name": "Català",
+      "htmlLang": "ca",
+      "title": "GUS, el gos pigall",
+      "description": "GUS, el gos pigall. Una pel·lícula d'animació. 2027 als cinemes.",
+      "skip": "Salta al contingut",
+      "langNav": "Idioma",
+      "release": "2027 als cinemes",
+      "synopsisHeading": "Sinopsi",
+      "synopsis": [
+        "Per fer realitat el seu somni de convertir-se en gos pigall, en Gus - un optimista cadell sense raça ni pedigrí que viu en un descampat - s’esforça per superar una sèrie de proves impossibles i durs entrenaments mentre intenta guanyar-se la confiança de tots aquells que no creuen en ell només pel fet de ser un gos de carrer."
+      ],
+      "pause": "Atura les imatges",
+      "play": "Reprèn les imatges",
+      "credit": "Web accessible per"
+    },
+    "es": {
+      "domain": "guselperroguia.com",
+      "name": "Español",
+      "htmlLang": "es",
+      "title": "GUS, el perro guía",
+      "description": "GUS, el perro guía. Una película de animación. 2027 en cines.",
+      "skip": "Saltar al contenido",
+      "langNav": "Idioma",
+      "release": "2027 en cines",
+      "synopsisHeading": "Sinopsis",
+      "synopsis": [
+        "Para hacer realidad su sueño de convertirse en perro lazarillo, Gus - un optimista cachorro sin raza ni pedigrí que vive en un descampado - se esfuerza por superar una serie de pruebas imposibles y duros entrenamientos mientras intenta ganarse la confianza de todos aquellos que no creen en él sólo por ser un perro callejero."
+      ],
+      "pause": "Pausar imágenes",
+      "play": "Reanudar imágenes",
+      "credit": "Web accesible por"
+    },
+    "en": {
+      "domain": "gustheguidedog.com",
+      "name": "English",
+      "htmlLang": "en",
+      "title": "GUS, the guide dog",
+      "description": "GUS, the guide dog. An animated feature film. In cinemas 2027.",
+      "skip": "Skip to content",
+      "langNav": "Language",
+      "release": "In cinemas 2027",
+      "synopsisHeading": "Synopsis",
+      "synopsis": [
+        "To make his dream of becoming a guide dog come true, Gus - an optimistic, mixed-breed pup with no pedigree who lives in a vacant lot - throws himself into gruelling training and seemingly impossible challenges, all while trying to earn the trust of those who doubt him simply because he’s a stray."
+      ],
+      "pause": "Pause images",
+      "play": "Play images",
+      "credit": "Accessible website by"
+    }
+  }
+}
