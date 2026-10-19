@@ -1,7 +1,8 @@
 // Escritorio: pase de imágenes de fondo con fundido.
 // - Se puede pausar (WCAG 2.2.2 Pausar, detener, ocultar).
 // - Con "reducir movimiento" activo no arranca solo.
-// Móvil y tablet vertical: carrusel horizontal que la persona recorre con el dedo.
+// Móvil y tablet vertical: una sola pantalla. Tarjeta + fotogramas en una tira horizontal
+// que la persona recorre con el dedo; al llegar al final vuelve al inicio sin saltos (bucle).
 // Ahí no hay pase automático ni botón de pausa.
 (() => {
   const INTERVAL = 7000;
@@ -60,21 +61,30 @@
 
   button.addEventListener("click", () => (playing() ? stop() : play()));
 
-  // Cambio entre modo escritorio (pase) y modo móvil (carrusel)
+  // Bucle en móvil: al final de la tira hay una copia de la tarjeta y del primer fotograma.
+  // Cuando la copia llega al borde izquierdo, se vuelve al inicio real: la vista es idéntica.
+  const scroller = document.querySelector(".layout");
+  const clone = document.querySelector(".card.loop-clone");
+  const onScroll = () => {
+    if (!clone) return;
+    const loopAt = clone.offsetLeft;
+    if (loopAt > 0 && scroller.scrollLeft >= loopAt) scroller.scrollLeft -= loopAt;
+  };
+
+  // Cambio entre modo escritorio (pase) y modo móvil (tira con bucle)
   const mobile = window.matchMedia("(max-width: 59.99rem)");
   const applyMode = () => {
     if (mobile.matches) {
       stop();
       button.hidden = true;
-      // El carrusel se puede recorrer también con teclado (flechas)
-      backdrop.setAttribute("tabindex", "0");
-      backdrop.setAttribute("aria-label", backdrop.dataset.stripLabel);
-      backdrop.removeAttribute("aria-labelledby");
+      // La tira también se recorre con teclado (flechas)
+      scroller.setAttribute("tabindex", "0");
+      scroller.addEventListener("scroll", onScroll, { passive: true });
     } else {
       button.hidden = false;
-      backdrop.removeAttribute("tabindex");
-      backdrop.removeAttribute("aria-label");
-      backdrop.setAttribute("aria-labelledby", "stills-title");
+      scroller.removeAttribute("tabindex");
+      scroller.removeEventListener("scroll", onScroll);
+      scroller.scrollLeft = 0;
       if (!reduceMotion.matches) play(); else render();
     }
   };

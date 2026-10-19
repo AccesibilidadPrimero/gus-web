@@ -156,6 +156,8 @@ a:hover { text-decoration-thickness: 0.12em; }
 }
 
 .card {
+  position: relative;
+  z-index: 1;                       /* por encima de los fotogramas de fondo */
   width: 100%;
   max-width: 36rem;
   padding: clamp(1.5rem, 4vw, 2.75rem);
@@ -238,34 +240,77 @@ a:hover { text-decoration-thickness: 0.12em; }
 }
 
 /* ---------- Móvil: la imagen asoma arriba ---------- */
-.strip-intro { display: none; }
+.loop-clone, .swipe-hint { display: none; }
 
-/* ---------- Móvil y tablet vertical: carrusel horizontal a pantalla completa ---------- */
+/* ---------- Móvil y tablet vertical: una sola pantalla con carrusel horizontal en bucle ---------- */
 @media (max-width: 59.99rem) {
-  body { display: flex; flex-direction: column; }
-
-  /* Idiomas flotando sobre el carrusel */
+  /* Idiomas flotando arriba a la derecha */
   .site-header { position: absolute; top: 0; right: 0; z-index: 3; padding: 1rem; }
-  .card-toggle { display: none; }          /* aquí la imagen ya se ve entera */
+  .card-toggle { display: none; }
 
-  /* El fondo pasa a ser una tira de fotogramas que se recorre con el dedo */
-  .backdrop {
-    order: 1;
-    position: relative;
-    inset: auto;
+  /* La pantalla entera es una tira horizontal: tarjeta + fotogramas + copia para el bucle */
+  .layout {
     display: flex;
     gap: 4px;
     height: 100vh;
     height: 100svh;
+    padding: 0;
     overflow-x: auto;
     overflow-y: hidden;
     overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    background: #000;
   }
-  .backdrop::-webkit-scrollbar { display: none; }
-  .backdrop:focus-visible { outline-offset: -4px; }
-  .backdrop img.still {
+  .layout::-webkit-scrollbar { display: none; }
+  .layout:focus-visible { outline-offset: -4px; }
+
+  .card,
+  .card.loop-clone {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 85vw;
+    max-width: 34rem;
+    height: 100%;
+    margin: 0;
+    padding: 4.5rem 1.5rem 1.5rem;
+    border-radius: 0;
+    box-shadow: none;
+    overflow-y: auto;                 /* con la letra muy ampliada, el texto se puede desplazar */
+  }
+  .card.is-hidden { opacity: 1; visibility: visible; }
+  .title img { width: min(100%, 17rem); }
+  .release { margin-top: 1rem; font-size: 1.5rem; align-self: flex-start; }
+  .synopsis h2, .synopsis .h2-like {
+    margin: 1.5rem 0 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.375rem;
+    line-height: 1.2;
+    color: var(--taronja);
+  }
+  .synopsis p:not(.h2-like) { font-size: 1.0625rem; }
+  .swipe-hint {
+    display: block;
+    margin: 1.25rem 0 0;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .swipe-hint span { display: inline-block; margin-left: 0.25rem; }
+
+  /* Los fotogramas, a toda la altura, uno detrás de otro */
+  .backdrop {
+    position: static;
+    flex: none;
+    display: flex;
+    gap: 4px;
+    height: 100%;
+    background: none;
+  }
+  .backdrop img.still,
+  .backdrop img.loop-clone {
+    display: block;
     position: static;
     flex: none;
     width: auto;
@@ -275,33 +320,6 @@ a:hover { text-decoration-thickness: 0.12em; }
     object-fit: cover;
     transition: none;
   }
-
-  /* Primer panel: logo + estreno. Deja asomar el primer fotograma a la derecha */
-  .strip-intro {
-    flex: none;
-    width: 78vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1.25rem;
-    padding: 5rem 1.5rem 2rem;
-    background: var(--nit);
-  }
-  .strip-intro img { width: 100%; max-width: 28rem; }
-  .strip-intro .release { margin: 0; align-self: flex-start; }
-  .swipe-hint {
-    margin: 0.5rem 0 0;
-    color: var(--crema);
-    font-weight: 700;
-    font-size: 1rem;
-  }
-  .swipe-hint span { display: inline-block; margin-left: 0.25rem; }
-
-  /* Segunda pantalla: la sinopsis. El logo y el estreno ya están en el carrusel */
-  .layout { order: 2; padding: 1rem; background: var(--nit); }
-  .card { margin-inline: auto; box-shadow: none; padding-inline: 0.5rem; }
-  .card .title, .card .release { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .synopsis h2 { margin-top: 0.5rem; }
 }
 
 @media (max-width: 59.99rem) and (prefers-reduced-motion: no-preference) {

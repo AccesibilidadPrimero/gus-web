@@ -48,6 +48,29 @@ const page = (code) => {
 
   const paragraphs = t.synopsis.map((p) => `          <p>${esc(p)}</p>`).join("\n");
 
+  // Contenido de la tarjeta. La copia del bucle (real = false) va sin ids ni encabezados
+  const cardInner = (real) => {
+    const logo = `<img src="/assets/img/logo/${code}-stack-color.webp" alt="${real ? esc(t.title) : ""}" width="1000" height="${{ ca: 571, es: 572, en: 589 }[code]}">`;
+    return real
+      ? `      <h1 class="title">
+        ${logo}
+      </h1>
+      <p class="release"><time datetime="2027">${esc(t.release)}</time></p>
+
+      <section class="synopsis" aria-labelledby="synopsis-title">
+        <h2 id="synopsis-title">${esc(t.synopsisHeading)}</h2>
+${paragraphs}
+      </section>
+      <p class="swipe-hint" aria-hidden="true">${esc(t.swipeHint)} <span>→</span></p>`
+      : `        <div class="title">${logo}</div>
+        <p class="release">${esc(t.release)}</p>
+        <div class="synopsis">
+          <p class="h2-like">${esc(t.synopsisHeading)}</p>
+${paragraphs}
+        </div>
+        <p class="swipe-hint">${esc(t.swipeHint)} <span>→</span></p>`;
+  };
+
   return `<!doctype html>
 <html lang="${t.htmlLang}">
 <head>
@@ -97,28 +120,19 @@ ${langLinks}
 
   <div class="layout">
     <main id="main" class="card" tabindex="-1">
-      <h1 class="title">
-        <img src="/assets/img/logo/${code}-stack-color.webp" alt="${esc(t.title)}" width="1000" height="${{ ca: 571, es: 572, en: 589 }[code]}">
-      </h1>
-      <p class="release"><time datetime="2027">${esc(t.release)}</time></p>
-
-      <section class="synopsis" aria-labelledby="synopsis-title">
-        <h2 id="synopsis-title">${esc(t.synopsisHeading)}</h2>
-${paragraphs}
-      </section>
+${cardInner(true)}
     </main>
-  </div>
 
-  <section class="backdrop" aria-labelledby="stills-title" data-strip-label="${esc(t.stripLabel)}">
-    <h2 id="stills-title" class="visually-hidden">${esc(t.stillsHeading)}</h2>
-    <!-- Solo en móvil: primer panel del carrusel (repite el logo, por eso es decorativo) -->
-    <div class="strip-intro" aria-hidden="true">
-      <img src="/assets/img/logo/${code}-stack-color.webp" alt="" width="1000" height="${{ ca: 571, es: 572, en: 589 }[code]}">
-      <p class="release">${esc(t.release)}</p>
-      <p class="swipe-hint">${esc(t.swipeHint)} <span>→</span></p>
-    </div>
+    <section class="backdrop" aria-labelledby="stills-title" data-strip-label="${esc(t.stripLabel)}">
+      <h2 id="stills-title" class="visually-hidden">${esc(t.stillsHeading)}</h2>
 ${backgrounds}
-  </section>
+      <!-- Solo en móvil: copia de la tarjeta y del primer fotograma para cerrar el bucle sin saltos -->
+      <div class="card loop-clone" aria-hidden="true" inert>
+${cardInner(false)}
+      </div>
+      <img class="loop-clone" src="${site.backgrounds[0].src}" alt="" width="1920" height="816" loading="lazy" aria-hidden="true">
+    </section>
+  </div>
 
 </body>
 </html>

@@ -61,4 +61,5 @@ Se definen en `content/site.json` (`domain`). El Worker y las páginas los leen 
 - El botón de ojo oculta la tarjeta para ver la imagen completa (Escape la vuelve a mostrar). El texto nunca se oculta solo.
 - Cada idioma es una página real con su `lang`, enlaces de idioma con `lang` y `hreflang`, y enlace "Saltar al contenido".
 - Fuentes autoalojadas (Fredoka 600 y Atkinson Hyperlegible Next 400/700): sin llamadas a Google Fonts.
+- Móvil: una sola pantalla. Tarjeta y fotogramas en una tira horizontal que se recorre con el dedo (o con las flechas); al final vuelve al inicio en bucle. Sin pase automático. Si el texto se amplía mucho, la tarjeta se desplaza en vertical.
 - Funciona sin JavaScript: se ve la primera imagen y todo el contenido.
