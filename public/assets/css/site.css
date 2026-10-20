@@ -266,7 +266,21 @@ a:hover { text-decoration-thickness: 0.12em; }
 @media (max-width: 59.99rem) {
   /* Idiomas flotando arriba a la derecha */
   .site-header { position: absolute; top: 0; right: 0; z-index: 3; padding: 1rem; }
-  .card-toggle, .slide-prev, .slide-next, .mini-brand { display: none; }
+  .card-toggle, .slide-prev, .slide-next { display: none; }
+
+  /* Logo pequeño al deslizar fuera de la tarjeta: más compacto, con el estreno debajo */
+  .mini-brand {
+    top: 1rem;
+    left: 1rem;
+    z-index: 3;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 0.6rem 0.9rem 0.7rem;
+    border-radius: 1rem;
+  }
+  .mini-brand img { height: 2.25rem; }
+  .mini-brand .release { font-size: 0.9375rem; padding: 0.2rem 0.6rem 0.25rem; }
 
   /* La pantalla entera es una tira horizontal: tarjeta + fotogramas + copia para el bucle */
   .layout {

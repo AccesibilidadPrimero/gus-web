@@ -30,9 +30,20 @@
   // Al final de la tira hay una copia de la tarjeta y del primer fotograma.
   // Al llegar a la copia se vuelve al inicio real: la vista es idéntica y no se nota el salto.
   const clone = document.querySelector(".card.loop-clone");
+  const card = document.getElementById("main");
+  const root = document.documentElement;
+  // Logo pequeño arriba a la izquierda cuando la tarjeta (o su copia del bucle) no está a la vista
+  const updateMiniBrand = () => {
+    const x = scroller.scrollLeft;
+    const vw = scroller.clientWidth;
+    const cardInView = x < card.offsetWidth * 0.5;
+    const cloneInView = clone && x + vw > clone.offsetLeft + vw * 0.5;
+    root.classList.toggle("card-hidden", !cardInView && !cloneInView);
+  };
   const onScroll = () => {
     const at = clone ? clone.offsetLeft : 0;
     if (at > 0 && scroller.scrollLeft >= at) scroller.scrollLeft -= at;
+    updateMiniBrand();
   };
 
   const mobile = window.matchMedia("(max-width: 59.99rem)");
@@ -40,10 +51,12 @@
     if (mobile.matches) {
       scroller.setAttribute("tabindex", "0"); // la tira también se recorre con las flechas del teclado
       scroller.addEventListener("scroll", onScroll, { passive: true });
+      updateMiniBrand();
     } else {
       scroller.removeAttribute("tabindex");
       scroller.removeEventListener("scroll", onScroll);
       scroller.scrollLeft = 0;
+      root.classList.toggle("card-hidden", card.classList.contains("is-hidden")); // en escritorio manda el botón de ojo
     }
   };
   applyMode();
