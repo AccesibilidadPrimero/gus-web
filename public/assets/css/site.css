@@ -170,6 +170,26 @@ a:hover { text-decoration-thickness: 0.12em; }
 .card { transition: opacity 300ms ease, visibility 0s linear 0s; }
 .card.is-hidden { opacity: 0; visibility: hidden; transition: opacity 300ms ease, visibility 0s linear 300ms; }
 
+/* Logo horizontal + estreno, arriba a la izquierda, cuando la tarjeta está oculta */
+.mini-brand {
+  position: fixed;
+  top: var(--gutter);
+  left: var(--gutter);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--nit);
+  border-radius: var(--radius);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms ease, visibility 0s linear 300ms;
+}
+.mini-brand img { height: 3.5rem; width: auto; }
+.mini-brand .release { margin: 0; font-size: 1.25rem; white-space: nowrap; }
+.card-hidden .mini-brand { opacity: 1; visibility: visible; transition: opacity 300ms ease, visibility 0s linear 0s; }
+
 .title { margin: 0; }
 .title img { width: min(100%, 26rem); }
 
@@ -246,7 +266,7 @@ a:hover { text-decoration-thickness: 0.12em; }
 @media (max-width: 59.99rem) {
   /* Idiomas flotando arriba a la derecha */
   .site-header { position: absolute; top: 0; right: 0; z-index: 3; padding: 1rem; }
-  .card-toggle, .slide-prev, .slide-next { display: none; }
+  .card-toggle, .slide-prev, .slide-next, .mini-brand { display: none; }
 
   /* La pantalla entera es una tira horizontal: tarjeta + fotogramas + copia para el bucle */
   .layout {
@@ -335,7 +355,7 @@ a:hover { text-decoration-thickness: 0.12em; }
 
 /* Modo de alto contraste forzado (Windows) */
 @media (forced-colors: active) {
-  .card, .lang ul, .release, .control-btn { border: 2px solid CanvasText; }
+  .card, .lang ul, .release, .control-btn, .mini-brand { border: 2px solid CanvasText; }
 }
 @media (forced-colors: active) and (min-width: 60rem) {
   .backdrop { display: none; }

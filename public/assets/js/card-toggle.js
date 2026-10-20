@@ -12,6 +12,7 @@
 
   const setHidden = (hidden) => {
     card.classList.toggle("is-hidden", hidden);
+    document.documentElement.classList.toggle("card-hidden", hidden); // muestra el logo pequeño
     label.textContent = hidden ? textShow : textHide;
     iconEye.toggleAttribute("hidden", hidden);
     iconText.toggleAttribute("hidden", !hidden);

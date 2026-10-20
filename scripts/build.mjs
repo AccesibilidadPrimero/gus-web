@@ -98,6 +98,12 @@ ${alternates}
 <body>
   <a class="skip-link" href="#main">${esc(t.skip)}</a>
 
+  <!-- Solo en escritorio: aparece al ocultar la tarjeta (el título real sigue siendo el h1 de la tarjeta) -->
+  <div class="mini-brand" aria-hidden="true">
+    <img src="/assets/img/logo/${code}-h-color.webp" alt="" width="1000" height="${{ ca: 303, es: 304, en: 308 }[code]}">
+    <span class="release">${esc(t.release)}</span>
+  </div>
+
   <header class="site-header">
     <nav class="lang" aria-label="${esc(t.langNav)}">
       <ul>
