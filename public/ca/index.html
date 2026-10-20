@@ -21,14 +21,17 @@
   <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-next-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=282cd13a2a">
-  <script src="/assets/js/slideshow.js?v=2dd618167a" defer></script>
-  <script src="/assets/js/card-toggle.js?v=c5b7d4b44d" defer></script>
+  <link rel="stylesheet" href="/assets/css/site.css?v=e207074ea1">
+  <script src="/assets/js/slideshow.js?v=aa0c05297c" defer></script>
 </head>
-<body>
+<body class="home">
   <a class="skip-link" href="#main">Salta al contingut</a>
 
   <header class="site-header">
+    <h1 class="brand">
+      <img src="/assets/img/logo/ca-h-color.webp" alt="GUS, el gos pigall" width="1000" height="303">
+    </h1>
+    <p class="release"><time datetime="2027">2027 als cinemes</time></p>
     <nav class="lang" aria-label="Idioma">
       <ul>
           <li><a href="https://guselgospigall.com/" lang="ca" hreflang="ca" aria-current="page">CA<span class="visually-hidden"> · Català</span></a></li>
@@ -36,35 +39,18 @@
           <li><a href="https://gustheguidedog.com/" lang="en" hreflang="en">EN<span class="visually-hidden"> · English</span></a></li>
       </ul>
     </nav>
-    <div class="controls">
-      <button type="button" class="control-btn card-toggle" hidden aria-controls="main" data-hide="Amaga el text per veure la imatge" data-show="Mostra el text">
-        <svg class="icon-eye" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1.5 12S5.5 4.5 12 4.5 22.5 12 22.5 12 18.5 19.5 12 19.5 1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3.5"/></svg>
-        <svg class="icon-text" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-        <span class="card-toggle-label visually-hidden">Amaga el text per veure la imatge</span>
-      </button>
-      <button type="button" class="control-btn slideshow-control" hidden data-pause="Atura les imatges" data-play="Reprèn les imatges">
-        <svg class="icon-pause fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
-        <svg class="icon-play fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false" hidden><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>
-        <span class="slideshow-label visually-hidden">Atura les imatges</span>
-      </button>
-    </div>
   </header>
 
   <div class="layout">
     <main id="main" class="card" tabindex="-1">
-      <h1 class="title">
-        <img src="/assets/img/logo/ca-stack-color.webp" alt="GUS, el gos pigall" width="1000" height="571">
-      </h1>
-      <p class="release"><time datetime="2027">2027 als cinemes</time></p>
-
       <section class="synopsis" aria-labelledby="synopsis-title">
         <h2 id="synopsis-title">Sinopsi</h2>
           <p>Per fer realitat el seu somni de convertir-se en gos pigall, en Gus - un optimista cadell sense raça ni pedigrí que viu en un descampat - s’esforça per superar una sèrie de proves impossibles i durs entrenaments mentre intenta guanyar-se la confiança de tots aquells que no creuen en ell només pel fet de ser un gos de carrer.</p>
       </section>
-      <p class="swipe-hint" aria-hidden="true">Llisca per veure les imatges <span>→</span></p>
+      <p class="swipe-hint" aria-hidden="true">Llisca o fes servir les fletxes <span>→</span></p>
     </main>
 
-    <section class="backdrop" aria-labelledby="stills-title" data-strip-label="Fotogrames de la pel·lícula. Desplaça’t horitzontalment.">
+    <section class="backdrop" aria-labelledby="stills-title">
       <h2 id="stills-title" class="visually-hidden">Fotogrames de la pel·lícula</h2>
     <img class="still is-active" src="/assets/img/bg/01.webp?v=1e4d67936f" alt="Cinc cadells treuen el cap per sota d’una grada de fusta; a dalt es veuen les sabatilles d’uns nens." width="2048" height="870" fetchpriority="high">
     <img class="still" src="/assets/img/bg/02.webp?v=57aa843ea2" alt="Una nena amb pitet texà camina amb un gos petit amb arnès cap a un edifici de maó vermell, presidit per l’estàtua d’un gos pigall." width="2048" height="870" loading="lazy">
@@ -76,19 +62,32 @@
     <img class="still" src="/assets/img/bg/08.webp?v=e899131ab2" alt="Un cadell avança entre cons taronja en un gimnàs d’entrenament." width="2048" height="870" loading="lazy">
     <img class="still" src="/assets/img/bg/09.webp?v=7cdda334e3" alt="Primer pla d’un cadell d’orelles grans que mira amunt amb els ulls brillants." width="2048" height="870" loading="lazy">
     <img class="still" src="/assets/img/bg/10.webp?v=c9604c42aa" alt="Un gos daurat abraça un cadell, que tanca els ulls, al costat d’una finestra amb llum de capvespre." width="2048" height="870" loading="lazy">
-      <!-- Solo en móvil: copia de la tarjeta y del primer fotograma para cerrar el bucle sin saltos -->
+      <!-- Solo en móvil: copia de la sinopsis y del primer fotograma para cerrar el bucle sin saltos -->
       <div class="card loop-clone" aria-hidden="true" inert>
-        <div class="title"><img src="/assets/img/logo/ca-stack-color.webp" alt="" width="1000" height="571"></div>
-        <p class="release">2027 als cinemes</p>
         <div class="synopsis">
           <p class="h2-like">Sinopsi</p>
           <p>Per fer realitat el seu somni de convertir-se en gos pigall, en Gus - un optimista cadell sense raça ni pedigrí que viu en un descampat - s’esforça per superar una sèrie de proves impossibles i durs entrenaments mentre intenta guanyar-se la confiança de tots aquells que no creuen en ell només pel fet de ser un gos de carrer.</p>
         </div>
-        <p class="swipe-hint">Llisca per veure les imatges <span>→</span></p>
+        <p class="swipe-hint">Llisca o fes servir les fletxes <span>→</span></p>
       </div>
-      <img class="loop-clone" src="/assets/img/bg/01.webp" alt="" width="2048" height="870" loading="lazy" aria-hidden="true">
+      <img class="loop-clone" src="/assets/img/bg/01.webp?v=1e4d67936f" alt="" width="2048" height="870" loading="lazy" aria-hidden="true">
     </section>
-  </div>
 
+    <div class="stage-controls" role="group" aria-label="Fotogrames de la pel·lícula">
+      <button type="button" class="control-btn slide-prev" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg>
+        <span class="visually-hidden">Imatge anterior</span>
+      </button>
+      <button type="button" class="control-btn slideshow-control" hidden data-pause="Atura les imatges" data-play="Reprèn les imatges">
+        <svg class="icon-pause fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
+        <svg class="icon-play fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false" hidden><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>
+        <span class="slideshow-label visually-hidden">Atura les imatges</span>
+      </button>
+      <button type="button" class="control-btn slide-next" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>
+        <span class="visually-hidden">Imatge següent</span>
+      </button>
+    </div>
+  </div>
 </body>
 </html>

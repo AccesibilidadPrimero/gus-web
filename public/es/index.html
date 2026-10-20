@@ -21,14 +21,17 @@
   <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-next-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=282cd13a2a">
-  <script src="/assets/js/slideshow.js?v=2dd618167a" defer></script>
-  <script src="/assets/js/card-toggle.js?v=c5b7d4b44d" defer></script>
+  <link rel="stylesheet" href="/assets/css/site.css?v=e207074ea1">
+  <script src="/assets/js/slideshow.js?v=aa0c05297c" defer></script>
 </head>
-<body>
+<body class="home">
   <a class="skip-link" href="#main">Saltar al contenido</a>
 
   <header class="site-header">
+    <h1 class="brand">
+      <img src="/assets/img/logo/es-h-color.webp" alt="GUS, el perro guía" width="1000" height="304">
+    </h1>
+    <p class="release"><time datetime="2027">2027 en cines</time></p>
     <nav class="lang" aria-label="Idioma">
       <ul>
           <li><a href="https://guselgospigall.com/" lang="ca" hreflang="ca">CA<span class="visually-hidden"> · Català</span></a></li>
@@ -36,35 +39,18 @@
           <li><a href="https://gustheguidedog.com/" lang="en" hreflang="en">EN<span class="visually-hidden"> · English</span></a></li>
       </ul>
     </nav>
-    <div class="controls">
-      <button type="button" class="control-btn card-toggle" hidden aria-controls="main" data-hide="Ocultar el texto para ver la imagen" data-show="Mostrar el texto">
-        <svg class="icon-eye" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1.5 12S5.5 4.5 12 4.5 22.5 12 22.5 12 18.5 19.5 12 19.5 1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3.5"/></svg>
-        <svg class="icon-text" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-        <span class="card-toggle-label visually-hidden">Ocultar el texto para ver la imagen</span>
-      </button>
-      <button type="button" class="control-btn slideshow-control" hidden data-pause="Pausar imágenes" data-play="Reanudar imágenes">
-        <svg class="icon-pause fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
-        <svg class="icon-play fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false" hidden><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>
-        <span class="slideshow-label visually-hidden">Pausar imágenes</span>
-      </button>
-    </div>
   </header>
 
   <div class="layout">
     <main id="main" class="card" tabindex="-1">
-      <h1 class="title">
-        <img src="/assets/img/logo/es-stack-color.webp" alt="GUS, el perro guía" width="1000" height="572">
-      </h1>
-      <p class="release"><time datetime="2027">2027 en cines</time></p>
-
       <section class="synopsis" aria-labelledby="synopsis-title">
         <h2 id="synopsis-title">Sinopsis</h2>
           <p>Para hacer realidad su sueño de convertirse en perro lazarillo, Gus - un optimista cachorro sin raza ni pedigrí que vive en un descampado - se esfuerza por superar una serie de pruebas imposibles y duros entrenamientos mientras intenta ganarse la confianza de todos aquellos que no creen en él sólo por ser un perro callejero.</p>
       </section>
-      <p class="swipe-hint" aria-hidden="true">Desliza para ver las imágenes <span>→</span></p>
+      <p class="swipe-hint" aria-hidden="true">Desliza o usa las flechas <span>→</span></p>
     </main>
 
-    <section class="backdrop" aria-labelledby="stills-title" data-strip-label="Fotogramas de la película. Desplázate en horizontal.">
+    <section class="backdrop" aria-labelledby="stills-title">
       <h2 id="stills-title" class="visually-hidden">Fotogramas de la película</h2>
     <img class="still is-active" src="/assets/img/bg/01.webp?v=1e4d67936f" alt="Cinco cachorros asoman la cabeza bajo una grada de madera; arriba se ven las zapatillas de unos niños." width="2048" height="870" fetchpriority="high">
     <img class="still" src="/assets/img/bg/02.webp?v=57aa843ea2" alt="Una niña con peto vaquero camina con un perro pequeño con arnés hacia un edificio de ladrillo rojo presidido por la estatua de un perro guía." width="2048" height="870" loading="lazy">
@@ -76,19 +62,32 @@
     <img class="still" src="/assets/img/bg/08.webp?v=e899131ab2" alt="Un cachorro avanza entre conos naranjas en un gimnasio de entrenamiento." width="2048" height="870" loading="lazy">
     <img class="still" src="/assets/img/bg/09.webp?v=7cdda334e3" alt="Primer plano de un cachorro de orejas grandes que mira hacia arriba con los ojos brillantes." width="2048" height="870" loading="lazy">
     <img class="still" src="/assets/img/bg/10.webp?v=c9604c42aa" alt="Un perro dorado abraza a un cachorro, que cierra los ojos, junto a una ventana con luz de atardecer." width="2048" height="870" loading="lazy">
-      <!-- Solo en móvil: copia de la tarjeta y del primer fotograma para cerrar el bucle sin saltos -->
+      <!-- Solo en móvil: copia de la sinopsis y del primer fotograma para cerrar el bucle sin saltos -->
       <div class="card loop-clone" aria-hidden="true" inert>
-        <div class="title"><img src="/assets/img/logo/es-stack-color.webp" alt="" width="1000" height="572"></div>
-        <p class="release">2027 en cines</p>
         <div class="synopsis">
           <p class="h2-like">Sinopsis</p>
           <p>Para hacer realidad su sueño de convertirse en perro lazarillo, Gus - un optimista cachorro sin raza ni pedigrí que vive en un descampado - se esfuerza por superar una serie de pruebas imposibles y duros entrenamientos mientras intenta ganarse la confianza de todos aquellos que no creen en él sólo por ser un perro callejero.</p>
         </div>
-        <p class="swipe-hint">Desliza para ver las imágenes <span>→</span></p>
+        <p class="swipe-hint">Desliza o usa las flechas <span>→</span></p>
       </div>
-      <img class="loop-clone" src="/assets/img/bg/01.webp" alt="" width="2048" height="870" loading="lazy" aria-hidden="true">
+      <img class="loop-clone" src="/assets/img/bg/01.webp?v=1e4d67936f" alt="" width="2048" height="870" loading="lazy" aria-hidden="true">
     </section>
-  </div>
 
+    <div class="stage-controls" role="group" aria-label="Fotogramas de la película">
+      <button type="button" class="control-btn slide-prev" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg>
+        <span class="visually-hidden">Imagen anterior</span>
+      </button>
+      <button type="button" class="control-btn slideshow-control" hidden data-pause="Pausar imágenes" data-play="Reanudar imágenes">
+        <svg class="icon-pause fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
+        <svg class="icon-play fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false" hidden><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>
+        <span class="slideshow-label visually-hidden">Pausar imágenes</span>
+      </button>
+      <button type="button" class="control-btn slide-next" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>
+        <span class="visually-hidden">Imagen siguiente</span>
+      </button>
+    </div>
+  </div>
 </body>
 </html>

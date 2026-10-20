@@ -91,34 +91,7 @@ a:hover { text-decoration-thickness: 0.12em; }
 }
 .skip-link:focus { top: var(--gutter); }
 
-/* ---------- Fondo con fundidos ---------- */
-.backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  background: #000;                 /* bandas negras: la imagen mantiene su formato */
-}
-.backdrop img.still {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: 50% 50%;
-  opacity: 0;
-  transition: opacity var(--fade) ease-in-out;
-}
-.backdrop img.still.is-active { opacity: 1; }
-
-/* ---------- Cabecera: idiomas ---------- */
-.site-header {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: flex-end;
-  padding: var(--gutter);
-}
+/* ---------- Idiomas ---------- */
 .lang ul {
   display: flex;
   gap: 0.25rem;
@@ -148,72 +121,40 @@ a:hover { text-decoration-thickness: 0.12em; }
   color: var(--nit);
 }
 
-/* ---------- Contenido ---------- */
-.layout {
-  position: relative;
-  z-index: 1;
-  padding: 0 var(--gutter) var(--gutter);
-}
-
+/* ---------- Piezas comunes ---------- */
 .card {
-  position: relative;
-  z-index: 1;                       /* por encima de los fotogramas de fondo */
-  width: 100%;
-  max-width: 36rem;
-  padding: clamp(1.5rem, 4vw, 2.75rem);
   background: var(--nit);           /* fondo sólido: 13,5:1 con el crema */
+  padding: clamp(1.5rem, 4vw, 2.75rem);
   border-radius: var(--radius);
-  box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.35);
+  max-width: 36rem;
 }
-
-/* Ocultar la tarjeta para ver la imagen completa (botón de ojo) */
-.card { transition: opacity 300ms ease, visibility 0s linear 0s; }
-.card.is-hidden { opacity: 0; visibility: hidden; transition: opacity 300ms ease, visibility 0s linear 300ms; }
-
-.title { margin: 0; }
-.title img { width: min(100%, 26rem); }
 
 .release {
   display: inline-block;
-  margin: 1.25rem 0 0;
-  padding: 0.45rem 1.1rem 0.5rem;
+  margin: 0;
+  padding: 0.35rem 0.9rem 0.4rem;
   background: var(--groc);          /* Blau nit sobre Groc sol: 8,69:1 */
   color: var(--nit);
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  font-size: clamp(1.125rem, 0.95rem + 0.6vw, 1.5rem);
   line-height: 1.15;
+  white-space: nowrap;
   border-radius: 0.75rem;
   transform: rotate(-2deg);
 }
 
-.synopsis h2 {
-  margin: 2rem 0 0.75rem;
+.synopsis h2, .synopsis .h2-like {
+  margin: 0 0 0.5rem;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.5rem, 1.3rem + 0.8vw, 1.875rem);
+  font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
   line-height: 1.2;
   color: var(--taronja);            /* Taronja sobre Blau nit: 5,86:1 */
 }
-.synopsis p { margin: 0 0 1em; max-width: 65ch; }
+.synopsis p { margin: 0 0 1em; max-width: 80ch; }
 .synopsis p:last-child { margin-bottom: 0; }
 
-.credit {
-  margin: 2rem 0 0;
-  padding-top: 1.25rem;
-  border-top: 1px solid rgb(255 248 232 / 0.25);
-  font-size: 1rem;
-}
-
-/* ---------- Control del pase ---------- */
-.controls {
-  position: fixed;
-  right: var(--gutter);
-  bottom: var(--gutter);
-  z-index: 2;
-  display: flex;
-  gap: 0.5rem;
-}
 .control-btn {
   display: inline-flex;
   align-items: center;
@@ -227,45 +168,127 @@ a:hover { text-decoration-thickness: 0.12em; }
   border-radius: 999px;
   cursor: pointer;
 }
-.control-btn:hover { background: var(--guia); }
-.control-btn[hidden] { display: none; }
-.control-btn svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@media (hover: hover) { .control-btn:hover { background: var(--guia); } }
+.control-btn[hidden], .control-btn svg[hidden] { display: none; }
+.control-btn svg { width: 1.375rem; height: 1.375rem; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .control-btn svg.fill { width: 1.125rem; height: 1.125rem; fill: currentColor; stroke: none; }
-.control-btn svg[hidden] { display: none; }
 
-/* ---------- Escritorio: tarjeta a la izquierda, imagen visible ---------- */
-@media (min-width: 60rem) {
-  body { display: grid; grid-template-rows: auto 1fr; }
-  .layout { display: flex; align-items: flex-end; }
-}
-
-/* ---------- Móvil: la imagen asoma arriba ---------- */
 .loop-clone, .swipe-hint { display: none; }
 
-/* ---------- Móvil y tablet vertical: una sola pantalla con carrusel horizontal en bucle ---------- */
-@media (max-width: 59.99rem) {
-  /* Idiomas flotando arriba a la derecha */
-  .site-header { position: absolute; top: 0; right: 0; z-index: 3; padding: 1rem; }
-  .card-toggle { display: none; }
+/* ---------- Página principal: tres franjas que nunca se tapan ----------
+   Arriba: logo, estreno e idiomas (siempre visibles).
+   Centro: el fotograma entero.
+   Abajo: la sinopsis en horizontal y los controles. */
+.home .site-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  padding: 0.875rem var(--gutter);
+  background: var(--nit);
+}
+.brand { margin: 0; flex: none; }
+.brand img { height: clamp(2.75rem, 9vh, 5.5rem); width: auto; }
+.home .lang { margin-left: auto; }
 
-  /* La pantalla entera es una tira horizontal: tarjeta + fotogramas + copia para el bucle */
-  .layout {
+.home .backdrop {
+  position: relative;
+  overflow: hidden;
+  background: #000;                 /* bandas negras: la imagen mantiene su formato */
+}
+.home .backdrop img.still {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity var(--fade) ease-in-out;
+}
+.home .backdrop img.still.is-active { opacity: 1; }
+
+.stage-controls { display: flex; gap: 0.5rem; }
+
+/* ---------- Escritorio ---------- */
+@media (min-width: 60rem) {
+  .home {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+    height: 100dvh;
+  }
+  .home .layout {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: "stage stage" "text controls";
+    min-height: 0;
+  }
+  .home .backdrop { grid-area: stage; min-height: 12rem; }
+  .home .card {
+    grid-area: text;
+    max-width: none;
+    padding: 1.25rem var(--gutter);
+    border-radius: 0;
+  }
+  .home .synopsis {
+    display: grid;
+    grid-template-columns: auto minmax(0, 80ch);
+    gap: 0.25rem 2.5rem;
+    align-items: baseline;
+  }
+  .home .synopsis h2 { margin: 0; }
+  .home .stage-controls {
+    grid-area: controls;
+    align-self: center;
+    padding: 1.25rem var(--gutter) 1.25rem 0;
+    background: var(--nit);
+    height: 100%;
+    align-items: center;
+  }
+}
+/* Pantallas bajas o texto muy ampliado: la página se desplaza en vez de recortar */
+@media (min-width: 60rem) and (max-height: 34rem) {
+  .home { height: auto; }
+  .home .backdrop { aspect-ratio: 2048 / 870; }
+}
+
+/* ---------- Móvil y tablet vertical ----------
+   Cabecera fija con el logo; debajo, una tira horizontal en bucle:
+   la sinopsis como primer panel y después los fotogramas a toda la altura. */
+@media (max-width: 59.99rem) {
+  .home {
     display: flex;
-    gap: 4px;
+    flex-direction: column;
     height: 100vh;
     height: 100svh;
-    padding: 0;
+    overflow: hidden;
+  }
+  .home .site-header {
+    flex: none;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+  .brand img { height: 2.5rem; }
+  .home .release { order: 3; font-size: 1rem; }
+
+  .home .layout {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    gap: 4px;
     overflow-x: auto;
     overflow-y: hidden;
     overscroll-behavior-x: contain;
     scrollbar-width: none;
     background: #000;
   }
-  .layout::-webkit-scrollbar { display: none; }
-  .layout:focus-visible { outline-offset: -4px; }
+  .home .layout::-webkit-scrollbar { display: none; }
+  .home .layout:focus-visible { outline-offset: -4px; }
 
-  .card,
-  .card.loop-clone {
+  .home .card,
+  .home .card.loop-clone {
     flex: none;
     display: flex;
     flex-direction: column;
@@ -274,23 +297,11 @@ a:hover { text-decoration-thickness: 0.12em; }
     max-width: 34rem;
     height: 100%;
     margin: 0;
-    padding: 4.5rem 1.5rem 1.5rem;
+    padding: 1.5rem 1.5rem 5.5rem;
     border-radius: 0;
-    box-shadow: none;
-    overflow-y: auto;                 /* con la letra muy ampliada, el texto se puede desplazar */
+    overflow-y: auto;               /* con la letra muy ampliada, el texto se puede desplazar */
   }
-  .card.is-hidden { opacity: 1; visibility: visible; }
-  .title img { width: min(100%, 17rem); }
-  .release { margin-top: 1rem; font-size: 1.5rem; align-self: flex-start; }
-  .synopsis h2, .synopsis .h2-like {
-    margin: 1.5rem 0 0.5rem;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.375rem;
-    line-height: 1.2;
-    color: var(--taronja);
-  }
-  .synopsis p:not(.h2-like) { font-size: 1.0625rem; }
+  .synopsis p { font-size: 1.0625rem; }
   .swipe-hint {
     display: block;
     margin: 1.25rem 0 0;
@@ -299,8 +310,7 @@ a:hover { text-decoration-thickness: 0.12em; }
   }
   .swipe-hint span { display: inline-block; margin-left: 0.25rem; }
 
-  /* Los fotogramas, a toda la altura, uno detrás de otro */
-  .backdrop {
+  .home .backdrop {
     position: static;
     flex: none;
     display: flex;
@@ -308,8 +318,8 @@ a:hover { text-decoration-thickness: 0.12em; }
     height: 100%;
     background: none;
   }
-  .backdrop img.still,
-  .backdrop img.loop-clone {
+  .home .backdrop img.still,
+  .home .backdrop img.loop-clone {
     display: block;
     position: static;
     flex: none;
@@ -320,12 +330,19 @@ a:hover { text-decoration-thickness: 0.12em; }
     object-fit: cover;
     transition: none;
   }
+
+  /* Flechas flotando abajo a la derecha */
+  .home .stage-controls {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 3;
+  }
 }
 
 @media (max-width: 59.99rem) and (prefers-reduced-motion: no-preference) {
   .swipe-hint span { animation: nudge 1.6s ease-in-out 3; }
   @keyframes nudge { 50% { transform: translateX(6px); } }
-}
 }
 
 /* Movimiento reducido: sin fundidos automáticos (el JS tampoco arranca solo) */
@@ -337,7 +354,4 @@ a:hover { text-decoration-thickness: 0.12em; }
 /* Modo de alto contraste forzado (Windows) */
 @media (forced-colors: active) {
   .card, .lang ul, .release, .control-btn { border: 2px solid CanvasText; }
-}
-@media (forced-colors: active) and (min-width: 60rem) {
-  .backdrop { display: none; }
 }

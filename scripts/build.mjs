@@ -11,7 +11,7 @@ const codes = Object.keys(site.languages);
 const fingerprint = async (path) =>
   createHash("sha256").update(await readFile(new URL(`public${path}`, root))).digest("hex").slice(0, 10);
 const asset = {};
-for (const path of ["/assets/css/site.css", "/assets/js/slideshow.js", "/assets/js/card-toggle.js", ...site.backgrounds.map((b) => b.src)]) {
+for (const path of ["/assets/css/site.css", "/assets/js/slideshow.js", ...site.backgrounds.map((b) => b.src)]) {
   asset[path] = `${path}?v=${await fingerprint(path)}`;
 }
 
@@ -48,28 +48,20 @@ const page = (code) => {
 
   const paragraphs = t.synopsis.map((p) => `          <p>${esc(p)}</p>`).join("\n");
 
-  // Contenido de la tarjeta. La copia del bucle (real = false) va sin ids ni encabezados
-  const cardInner = (real) => {
-    const logo = `<img src="/assets/img/logo/${code}-stack-color.webp" alt="${real ? esc(t.title) : ""}" width="1000" height="${{ ca: 571, es: 572, en: 589 }[code]}">`;
-    return real
-      ? `      <h1 class="title">
-        ${logo}
-      </h1>
-      <p class="release"><time datetime="2027">${esc(t.release)}</time></p>
-
-      <section class="synopsis" aria-labelledby="synopsis-title">
+  // Contenido de la tarjeta: solo la sinopsis (logo y estreno están en la cabecera, siempre visibles).
+  // La copia del bucle de móvil (real = false) va sin ids ni encabezados.
+  const cardInner = (real) =>
+    real
+      ? `      <section class="synopsis" aria-labelledby="synopsis-title">
         <h2 id="synopsis-title">${esc(t.synopsisHeading)}</h2>
 ${paragraphs}
       </section>
       <p class="swipe-hint" aria-hidden="true">${esc(t.swipeHint)} <span>→</span></p>`
-      : `        <div class="title">${logo}</div>
-        <p class="release">${esc(t.release)}</p>
-        <div class="synopsis">
+      : `        <div class="synopsis">
           <p class="h2-like">${esc(t.synopsisHeading)}</p>
 ${paragraphs}
         </div>
         <p class="swipe-hint">${esc(t.swipeHint)} <span>→</span></p>`;
-  };
 
   return `<!doctype html>
 <html lang="${t.htmlLang}">
@@ -93,29 +85,20 @@ ${alternates}
   <link rel="preload" href="/assets/fonts/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="${asset["/assets/css/site.css"]}">
   <script src="${asset["/assets/js/slideshow.js"]}" defer></script>
-  <script src="${asset["/assets/js/card-toggle.js"]}" defer></script>
 </head>
-<body>
+<body class="home">
   <a class="skip-link" href="#main">${esc(t.skip)}</a>
 
   <header class="site-header">
+    <h1 class="brand">
+      <img src="/assets/img/logo/${code}-h-color.webp" alt="${esc(t.title)}" width="1000" height="${{ ca: 303, es: 304, en: 308 }[code]}">
+    </h1>
+    <p class="release"><time datetime="2027">${esc(t.release)}</time></p>
     <nav class="lang" aria-label="${esc(t.langNav)}">
       <ul>
 ${langLinks}
       </ul>
     </nav>
-    <div class="controls">
-      <button type="button" class="control-btn card-toggle" hidden aria-controls="main" data-hide="${esc(t.hideText)}" data-show="${esc(t.showText)}">
-        <svg class="icon-eye" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1.5 12S5.5 4.5 12 4.5 22.5 12 22.5 12 18.5 19.5 12 19.5 1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3.5"/></svg>
-        <svg class="icon-text" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-        <span class="card-toggle-label visually-hidden">${esc(t.hideText)}</span>
-      </button>
-      <button type="button" class="control-btn slideshow-control" hidden data-pause="${esc(t.pause)}" data-play="${esc(t.play)}">
-        <svg class="icon-pause fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
-        <svg class="icon-play fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false" hidden><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>
-        <span class="slideshow-label visually-hidden">${esc(t.pause)}</span>
-      </button>
-    </div>
   </header>
 
   <div class="layout">
@@ -123,17 +106,32 @@ ${langLinks}
 ${cardInner(true)}
     </main>
 
-    <section class="backdrop" aria-labelledby="stills-title" data-strip-label="${esc(t.stripLabel)}">
+    <section class="backdrop" aria-labelledby="stills-title">
       <h2 id="stills-title" class="visually-hidden">${esc(t.stillsHeading)}</h2>
 ${backgrounds}
-      <!-- Solo en móvil: copia de la tarjeta y del primer fotograma para cerrar el bucle sin saltos -->
+      <!-- Solo en móvil: copia de la sinopsis y del primer fotograma para cerrar el bucle sin saltos -->
       <div class="card loop-clone" aria-hidden="true" inert>
 ${cardInner(false)}
       </div>
-      <img class="loop-clone" src="${site.backgrounds[0].src}" alt="" width="2048" height="870" loading="lazy" aria-hidden="true">
+      <img class="loop-clone" src="${asset[site.backgrounds[0].src]}" alt="" width="2048" height="870" loading="lazy" aria-hidden="true">
     </section>
-  </div>
 
+    <div class="stage-controls" role="group" aria-label="${esc(t.stillsHeading)}">
+      <button type="button" class="control-btn slide-prev" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg>
+        <span class="visually-hidden">${esc(t.prev)}</span>
+      </button>
+      <button type="button" class="control-btn slideshow-control" hidden data-pause="${esc(t.pause)}" data-play="${esc(t.play)}">
+        <svg class="icon-pause fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
+        <svg class="icon-play fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false" hidden><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>
+        <span class="slideshow-label visually-hidden">${esc(t.pause)}</span>
+      </button>
+      <button type="button" class="control-btn slide-next" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>
+        <span class="visually-hidden">${esc(t.next)}</span>
+      </button>
+    </div>
+  </div>
 </body>
 </html>
 `;

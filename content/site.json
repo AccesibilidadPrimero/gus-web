@@ -100,10 +100,10 @@
       "play": "Reprèn les imatges",
       "credit": "Web accessible per",
       "stillsHeading": "Fotogrames de la pel·lícula",
-      "hideText": "Amaga el text per veure la imatge",
-      "showText": "Mostra el text",
-      "swipeHint": "Llisca per veure les imatges",
-      "stripLabel": "Fotogrames de la pel·lícula. Desplaça’t horitzontalment."
+      "swipeHint": "Llisca o fes servir les fletxes",
+      "stripLabel": "Fotogrames de la pel·lícula. Desplaça’t horitzontalment.",
+      "prev": "Imatge anterior",
+      "next": "Imatge següent"
     },
     "es": {
       "domain": "guselperroguia.com",
@@ -122,10 +122,10 @@
       "play": "Reanudar imágenes",
       "credit": "Web accesible por",
       "stillsHeading": "Fotogramas de la película",
-      "hideText": "Ocultar el texto para ver la imagen",
-      "showText": "Mostrar el texto",
-      "swipeHint": "Desliza para ver las imágenes",
-      "stripLabel": "Fotogramas de la película. Desplázate en horizontal."
+      "swipeHint": "Desliza o usa las flechas",
+      "stripLabel": "Fotogramas de la película. Desplázate en horizontal.",
+      "prev": "Imagen anterior",
+      "next": "Imagen siguiente"
     },
     "en": {
       "domain": "gustheguidedog.com",
@@ -144,10 +144,10 @@
       "play": "Play images",
       "credit": "Accessible website by",
       "stillsHeading": "Film stills",
-      "hideText": "Hide the text to see the image",
-      "showText": "Show the text",
-      "swipeHint": "Swipe to see the images",
-      "stripLabel": "Film stills. Scroll horizontally."
+      "swipeHint": "Swipe or use the arrows",
+      "stripLabel": "Film stills. Scroll horizontally.",
+      "prev": "Previous image",
+      "next": "Next image"
     }
   }
 }

@@ -21,14 +21,17 @@
   <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-next-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/site.css?v=282cd13a2a">
-  <script src="/assets/js/slideshow.js?v=2dd618167a" defer></script>
-  <script src="/assets/js/card-toggle.js?v=c5b7d4b44d" defer></script>
+  <link rel="stylesheet" href="/assets/css/site.css?v=e207074ea1">
+  <script src="/assets/js/slideshow.js?v=aa0c05297c" defer></script>
 </head>
-<body>
+<body class="home">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
+    <h1 class="brand">
+      <img src="/assets/img/logo/en-h-color.webp" alt="GUS, the guide dog" width="1000" height="308">
+    </h1>
+    <p class="release"><time datetime="2027">In cinemas 2027</time></p>
     <nav class="lang" aria-label="Language">
       <ul>
           <li><a href="https://guselgospigall.com/" lang="ca" hreflang="ca">CA<span class="visually-hidden"> · Català</span></a></li>
@@ -36,35 +39,18 @@
           <li><a href="https://gustheguidedog.com/" lang="en" hreflang="en" aria-current="page">EN<span class="visually-hidden"> · English</span></a></li>
       </ul>
     </nav>
-    <div class="controls">
-      <button type="button" class="control-btn card-toggle" hidden aria-controls="main" data-hide="Hide the text to see the image" data-show="Show the text">
-        <svg class="icon-eye" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1.5 12S5.5 4.5 12 4.5 22.5 12 22.5 12 18.5 19.5 12 19.5 1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3.5"/></svg>
-        <svg class="icon-text" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-        <span class="card-toggle-label visually-hidden">Hide the text to see the image</span>
-      </button>
-      <button type="button" class="control-btn slideshow-control" hidden data-pause="Pause images" data-play="Play images">
-        <svg class="icon-pause fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
-        <svg class="icon-play fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false" hidden><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>
-        <span class="slideshow-label visually-hidden">Pause images</span>
-      </button>
-    </div>
   </header>
 
   <div class="layout">
     <main id="main" class="card" tabindex="-1">
-      <h1 class="title">
-        <img src="/assets/img/logo/en-stack-color.webp" alt="GUS, the guide dog" width="1000" height="589">
-      </h1>
-      <p class="release"><time datetime="2027">In cinemas 2027</time></p>
-
       <section class="synopsis" aria-labelledby="synopsis-title">
         <h2 id="synopsis-title">Synopsis</h2>
           <p>To make his dream of becoming a guide dog come true, Gus - an optimistic, mixed-breed pup with no pedigree who lives in a vacant lot - throws himself into gruelling training and seemingly impossible challenges, all while trying to earn the trust of those who doubt him simply because he’s a stray.</p>
       </section>
-      <p class="swipe-hint" aria-hidden="true">Swipe to see the images <span>→</span></p>
+      <p class="swipe-hint" aria-hidden="true">Swipe or use the arrows <span>→</span></p>
     </main>
 
-    <section class="backdrop" aria-labelledby="stills-title" data-strip-label="Film stills. Scroll horizontally.">
+    <section class="backdrop" aria-labelledby="stills-title">
       <h2 id="stills-title" class="visually-hidden">Film stills</h2>
     <img class="still is-active" src="/assets/img/bg/01.webp?v=1e4d67936f" alt="Five puppies peek out from under a wooden bleacher, with children’s sneakers dangling above." width="2048" height="870" fetchpriority="high">
     <img class="still" src="/assets/img/bg/02.webp?v=57aa843ea2" alt="A girl in denim overalls walks a small dog in a harness towards a red-brick building with a guide dog statue at its entrance." width="2048" height="870" loading="lazy">
@@ -76,19 +62,32 @@
     <img class="still" src="/assets/img/bg/08.webp?v=e899131ab2" alt="A puppy weaves between orange cones in a training gym." width="2048" height="870" loading="lazy">
     <img class="still" src="/assets/img/bg/09.webp?v=7cdda334e3" alt="Close-up of a big-eared puppy looking up with shining eyes." width="2048" height="870" loading="lazy">
     <img class="still" src="/assets/img/bg/10.webp?v=c9604c42aa" alt="A golden dog hugs a puppy, who closes its eyes, beside a window glowing with evening light." width="2048" height="870" loading="lazy">
-      <!-- Solo en móvil: copia de la tarjeta y del primer fotograma para cerrar el bucle sin saltos -->
+      <!-- Solo en móvil: copia de la sinopsis y del primer fotograma para cerrar el bucle sin saltos -->
       <div class="card loop-clone" aria-hidden="true" inert>
-        <div class="title"><img src="/assets/img/logo/en-stack-color.webp" alt="" width="1000" height="589"></div>
-        <p class="release">In cinemas 2027</p>
         <div class="synopsis">
           <p class="h2-like">Synopsis</p>
           <p>To make his dream of becoming a guide dog come true, Gus - an optimistic, mixed-breed pup with no pedigree who lives in a vacant lot - throws himself into gruelling training and seemingly impossible challenges, all while trying to earn the trust of those who doubt him simply because he’s a stray.</p>
         </div>
-        <p class="swipe-hint">Swipe to see the images <span>→</span></p>
+        <p class="swipe-hint">Swipe or use the arrows <span>→</span></p>
       </div>
-      <img class="loop-clone" src="/assets/img/bg/01.webp" alt="" width="2048" height="870" loading="lazy" aria-hidden="true">
+      <img class="loop-clone" src="/assets/img/bg/01.webp?v=1e4d67936f" alt="" width="2048" height="870" loading="lazy" aria-hidden="true">
     </section>
-  </div>
 
+    <div class="stage-controls" role="group" aria-label="Film stills">
+      <button type="button" class="control-btn slide-prev" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg>
+        <span class="visually-hidden">Previous image</span>
+      </button>
+      <button type="button" class="control-btn slideshow-control" hidden data-pause="Pause images" data-play="Play images">
+        <svg class="icon-pause fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
+        <svg class="icon-play fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false" hidden><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>
+        <span class="slideshow-label visually-hidden">Pause images</span>
+      </button>
+      <button type="button" class="control-btn slide-next" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>
+        <span class="visually-hidden">Next image</span>
+      </button>
+    </div>
+  </div>
 </body>
 </html>
