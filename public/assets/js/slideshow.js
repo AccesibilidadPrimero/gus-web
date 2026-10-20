@@ -1,8 +1,8 @@
 // Fotogramas de GUS.
 // Escritorio: pase automático con fundido, flechas anterior/siguiente y pausa (WCAG 2.2.2).
 //   Con "reducir movimiento" activo no arranca solo.
-// Móvil y tablet vertical: tira horizontal que se recorre con el dedo o con las flechas,
-//   en bucle en los dos sentidos. Sin pase automático.
+// Móvil y tablet vertical: tira horizontal que se recorre con el dedo (o con las flechas
+//   del teclado), en bucle. Sin pase automático ni botones.
 (() => {
   const INTERVAL = 7000;
   const backdrop = document.querySelector(".backdrop");
@@ -60,24 +60,15 @@
   // Al llegar a la copia se vuelve al inicio real: la vista es idéntica y no se nota el salto.
   const clone = backdrop.querySelector(".card.loop-clone");
   const loopAt = () => (clone ? clone.offsetLeft : 0);
-  const behavior = () => (reduceMotion.matches ? "auto" : "smooth");
 
   const onScroll = () => {
     const at = loopAt();
     if (at > 0 && scroller.scrollLeft >= at) scroller.scrollLeft -= at;
   };
 
-  // Cada flecha avanza o retrocede una pantalla, así se recorre cada panorama entero
-  const screen = () => scroller.clientWidth * 0.85;
-  const stripNext = () => scroller.scrollBy({ left: screen(), behavior: behavior() });
-  const stripPrev = () => {
-    if (scroller.scrollLeft < 4) scroller.scrollLeft = loopAt() - 1; // misma vista, desde la copia
-    scroller.scrollBy({ left: -screen(), behavior: behavior() });
-  };
-
   /* ---------- Flechas ---------- */
-  prevBtn.addEventListener("click", () => (mobile.matches ? stripPrev() : (step(-1), restart())));
-  nextBtn.addEventListener("click", () => (mobile.matches ? stripNext() : (step(1), restart())));
+  prevBtn.addEventListener("click", () => { step(-1); restart(); });
+  nextBtn.addEventListener("click", () => { step(1); restart(); });
 
   /* ---------- Cambio de modo ---------- */
   const applyMode = () => {

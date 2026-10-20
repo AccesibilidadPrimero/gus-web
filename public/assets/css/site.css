@@ -297,7 +297,7 @@ a:hover { text-decoration-thickness: 0.12em; }
     max-width: 34rem;
     height: 100%;
     margin: 0;
-    padding: 1.5rem 1.5rem 5.5rem;
+    padding: 1.5rem;
     border-radius: 0;
     overflow-y: auto;               /* con la letra muy ampliada, el texto se puede desplazar */
   }
@@ -331,13 +331,8 @@ a:hover { text-decoration-thickness: 0.12em; }
     transition: none;
   }
 
-  /* Flechas flotando abajo a la derecha */
-  .home .stage-controls {
-    position: fixed;
-    right: 1rem;
-    bottom: 1rem;
-    z-index: 3;
-  }
+  /* Sin flechas: la tira se recorre con el dedo (o con las flechas del teclado) */
+  .home .stage-controls { display: none; }
 }
 
 @media (max-width: 59.99rem) and (prefers-reduced-motion: no-preference) {

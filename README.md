@@ -20,7 +20,7 @@ wrangler.jsonc        Configuración del Worker
 2. Ejecuta `npm run build` para regenerar las tres páginas.
 3. Haz commit y push: Cloudflare despliega solo.
 
-Imágenes de fondo: WebP, 1920 px de ancho, menos de 150 KB cada una si es posible.
+Imágenes de fondo: WebP, 2048 px de ancho o más, menos de 150 KB cada una si es posible.
 
 ## Desarrollo local
 
@@ -55,11 +55,10 @@ Se definen en `content/site.json` (`domain`). El Worker y las páginas los leen 
 ## Accesibilidad
 
 - Texto siempre sobre fondo sólido Blau nit (13,5:1). Nada de texto sobre la imagen.
-- El pase de imágenes se puede pausar (WCAG 2.2.2) y el botón está al principio del orden de tabulación.
+- Escritorio: logo, estreno e idiomas siempre visibles arriba; fotograma entero en el centro; sinopsis en horizontal debajo. Pase automático con flechas y pausa (WCAG 2.2.2).
 - Con "reducir movimiento" activado, las imágenes no cambian solas.
 - Cada fotograma tiene texto alternativo en su idioma y se lee después de la sinopsis, como sección "Fotogramas de la película". El logotipo es el `h1` con el título como texto alternativo.
-- El botón de ojo oculta la tarjeta para ver la imagen completa (Escape la vuelve a mostrar). El texto nunca se oculta solo.
 - Cada idioma es una página real con su `lang`, enlaces de idioma con `lang` y `hreflang`, y enlace "Saltar al contenido".
 - Fuentes autoalojadas (Fredoka 600 y Atkinson Hyperlegible Next 400/700): sin llamadas a Google Fonts.
-- Móvil: una sola pantalla. Tarjeta y fotogramas en una tira horizontal que se recorre con el dedo (o con las flechas); al final vuelve al inicio en bucle. Sin pase automático. Si el texto se amplía mucho, la tarjeta se desplaza en vertical.
+- Móvil: logo fijo arriba; debajo, sinopsis y fotogramas en una tira horizontal que se recorre con el dedo (o con las flechas del teclado); al final vuelve al inicio en bucle. Sin pase automático. Si el texto se amplía mucho, la tarjeta se desplaza en vertical.
 - Funciona sin JavaScript: se ve la primera imagen y todo el contenido.
