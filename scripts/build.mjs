@@ -110,10 +110,13 @@ ${langLinks}
         <svg class="icon-text" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M4 6h16M4 12h16M4 18h10"/></svg>
         <span class="card-toggle-label visually-hidden">${esc(t.hideText)}</span>
       </button>
-      <button type="button" class="control-btn slideshow-control" hidden data-pause="${esc(t.pause)}" data-play="${esc(t.play)}">
-        <svg class="icon-pause fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
-        <svg class="icon-play fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false" hidden><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5z"/></svg>
-        <span class="slideshow-label visually-hidden">${esc(t.pause)}</span>
+      <button type="button" class="control-btn slide-prev" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg>
+        <span class="visually-hidden">${esc(t.prev)}</span>
+      </button>
+      <button type="button" class="control-btn slide-next" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>
+        <span class="visually-hidden">${esc(t.next)}</span>
       </button>
     </div>
   </header>

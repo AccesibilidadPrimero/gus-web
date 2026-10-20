@@ -96,14 +96,14 @@
       "synopsis": [
         "Per fer realitat el seu somni de convertir-se en gos pigall, en Gus - un optimista cadell sense raça ni pedigrí que viu en un descampat - s’esforça per superar una sèrie de proves impossibles i durs entrenaments mentre intenta guanyar-se la confiança de tots aquells que no creuen en ell només pel fet de ser un gos de carrer."
       ],
-      "pause": "Atura les imatges",
-      "play": "Reprèn les imatges",
       "credit": "Web accessible per",
       "stillsHeading": "Fotogrames de la pel·lícula",
       "hideText": "Amaga el text per veure la imatge",
       "showText": "Mostra el text",
       "swipeHint": "Llisca per veure les imatges",
-      "stripLabel": "Fotogrames de la pel·lícula. Desplaça’t horitzontalment."
+      "stripLabel": "Fotogrames de la pel·lícula. Desplaça’t horitzontalment.",
+      "prev": "Imatge anterior",
+      "next": "Imatge següent"
     },
     "es": {
       "domain": "guselperroguia.com",
@@ -118,14 +118,14 @@
       "synopsis": [
         "Para hacer realidad su sueño de convertirse en perro lazarillo, Gus - un optimista cachorro sin raza ni pedigrí que vive en un descampado - se esfuerza por superar una serie de pruebas imposibles y duros entrenamientos mientras intenta ganarse la confianza de todos aquellos que no creen en él sólo por ser un perro callejero."
       ],
-      "pause": "Pausar imágenes",
-      "play": "Reanudar imágenes",
       "credit": "Web accesible por",
       "stillsHeading": "Fotogramas de la película",
       "hideText": "Ocultar el texto para ver la imagen",
       "showText": "Mostrar el texto",
       "swipeHint": "Desliza para ver las imágenes",
-      "stripLabel": "Fotogramas de la película. Desplázate en horizontal."
+      "stripLabel": "Fotogramas de la película. Desplázate en horizontal.",
+      "prev": "Imagen anterior",
+      "next": "Imagen siguiente"
     },
     "en": {
       "domain": "gustheguidedog.com",
@@ -140,14 +140,14 @@
       "synopsis": [
         "To make his dream of becoming a guide dog come true, Gus - an optimistic, mixed-breed pup with no pedigree who lives in a vacant lot - throws himself into gruelling training and seemingly impossible challenges, all while trying to earn the trust of those who doubt him simply because he’s a stray."
       ],
-      "pause": "Pause images",
-      "play": "Play images",
       "credit": "Accessible website by",
       "stillsHeading": "Film stills",
       "hideText": "Hide the text to see the image",
       "showText": "Show the text",
       "swipeHint": "Swipe to see the images",
-      "stripLabel": "Film stills. Scroll horizontally."
+      "stripLabel": "Film stills. Scroll horizontally.",
+      "prev": "Previous image",
+      "next": "Next image"
     }
   }
 }

@@ -1,95 +1,51 @@
-// Escritorio: pase de imágenes de fondo con fundido.
-// - Se puede pausar (WCAG 2.2.2 Pausar, detener, ocultar).
-// - Con "reducir movimiento" activo no arranca solo.
+// Fotogramas de GUS.
+// Escritorio: los fotogramas cambian con las flechas anterior/siguiente, con fundido.
+//   Nada se mueve solo, así que no hace falta botón de pausa.
 // Móvil y tablet vertical: una sola pantalla. Tarjeta + fotogramas en una tira horizontal
-// que la persona recorre con el dedo; al llegar al final vuelve al inicio sin saltos (bucle).
-// Ahí no hay pase automático ni botón de pausa.
+//   que se recorre con el dedo (o con las flechas del teclado), en bucle. Sin botones.
 (() => {
-  const INTERVAL = 7000;
   const backdrop = document.querySelector(".backdrop");
-  const button = document.querySelector(".slideshow-control");
-  if (!backdrop || !button) return;
+  const scroller = document.querySelector(".layout");
+  const prevBtn = document.querySelector(".slide-prev");
+  const nextBtn = document.querySelector(".slide-next");
+  if (!backdrop || !scroller || !prevBtn || !nextBtn) return;
 
   const slides = Array.from(backdrop.querySelectorAll("img.still"));
-  if (slides.length < 2) return; // con una sola imagen no hay pase ni botón
+  if (slides.length < 2) return;
 
-  const label = button.querySelector(".slideshow-label");
-  const iconPause = button.querySelector(".icon-pause");
-  const iconPlay = button.querySelector(".icon-play");
-  const { pause: textPause, play: textPlay } = button.dataset;
-
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  /* ---------- Escritorio: flechas con fundido ---------- */
   let current = 0;
-  let timer = null;
-
-  const load = (img) => {
-    if (img.dataset.src && !img.src) img.src = img.dataset.src;
+  const step = (dir) => {
+    const next = (current + dir + slides.length) % slides.length;
+    slides[current].classList.remove("is-active");
+    slides[next].classList.add("is-active");
+    current = next;
   };
+  prevBtn.addEventListener("click", () => step(-1));
+  nextBtn.addEventListener("click", () => step(1));
+  prevBtn.hidden = false;
+  nextBtn.hidden = false;
 
-  const show = (next) => {
-    const img = slides[next];
-    load(img);
-    const swap = () => {
-      slides[current].classList.remove("is-active");
-      img.classList.add("is-active");
-      current = next;
-      load(slides[(next + 1) % slides.length]); // precarga la siguiente
-    };
-    img.complete && img.naturalWidth ? swap() : img.addEventListener("load", swap, { once: true });
-  };
-
-  const playing = () => timer !== null;
-
-  const render = () => {
-    const isPlaying = playing();
-    label.textContent = isPlaying ? textPause : textPlay;
-    iconPause.toggleAttribute("hidden", !isPlaying);
-    iconPlay.toggleAttribute("hidden", isPlaying);
-  };
-
-  const play = () => {
-    if (playing()) return;
-    timer = setInterval(() => show((current + 1) % slides.length), INTERVAL);
-    render();
-  };
-
-  const stop = () => {
-    clearInterval(timer);
-    timer = null;
-    render();
-  };
-
-  button.addEventListener("click", () => (playing() ? stop() : play()));
-
-  // Bucle en móvil: al final de la tira hay una copia de la tarjeta y del primer fotograma.
-  // Cuando la copia llega al borde izquierdo, se vuelve al inicio real: la vista es idéntica.
-  const scroller = document.querySelector(".layout");
+  /* ---------- Móvil: tira con bucle ---------- */
+  // Al final de la tira hay una copia de la tarjeta y del primer fotograma.
+  // Al llegar a la copia se vuelve al inicio real: la vista es idéntica y no se nota el salto.
   const clone = document.querySelector(".card.loop-clone");
   const onScroll = () => {
-    if (!clone) return;
-    const loopAt = clone.offsetLeft;
-    if (loopAt > 0 && scroller.scrollLeft >= loopAt) scroller.scrollLeft -= loopAt;
+    const at = clone ? clone.offsetLeft : 0;
+    if (at > 0 && scroller.scrollLeft >= at) scroller.scrollLeft -= at;
   };
 
-  // Cambio entre modo escritorio (pase) y modo móvil (tira con bucle)
   const mobile = window.matchMedia("(max-width: 59.99rem)");
   const applyMode = () => {
     if (mobile.matches) {
-      stop();
-      button.hidden = true;
-      // La tira también se recorre con teclado (flechas)
-      scroller.setAttribute("tabindex", "0");
+      scroller.setAttribute("tabindex", "0"); // la tira también se recorre con las flechas del teclado
       scroller.addEventListener("scroll", onScroll, { passive: true });
     } else {
-      button.hidden = false;
       scroller.removeAttribute("tabindex");
       scroller.removeEventListener("scroll", onScroll);
       scroller.scrollLeft = 0;
-      if (!reduceMotion.matches) play(); else render();
     }
   };
   applyMode();
   mobile.addEventListener?.("change", applyMode);
-
-  reduceMotion.addEventListener?.("change", (e) => e.matches && stop());
 })();

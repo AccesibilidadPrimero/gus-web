@@ -20,7 +20,7 @@ wrangler.jsonc        Configuración del Worker
 2. Ejecuta `npm run build` para regenerar las tres páginas.
 3. Haz commit y push: Cloudflare despliega solo.
 
-Imágenes de fondo: WebP, 1920 px de ancho, menos de 150 KB cada una si es posible.
+Imágenes de fondo: WebP, 2048 px de ancho o más, menos de 150 KB cada una si es posible.
 
 ## Desarrollo local
 
@@ -55,8 +55,7 @@ Se definen en `content/site.json` (`domain`). El Worker y las páginas los leen 
 ## Accesibilidad
 
 - Texto siempre sobre fondo sólido Blau nit (13,5:1). Nada de texto sobre la imagen.
-- El pase de imágenes se puede pausar (WCAG 2.2.2) y el botón está al principio del orden de tabulación.
-- Con "reducir movimiento" activado, las imágenes no cambian solas.
+- Escritorio: los fotogramas cambian solo con las flechas anterior/siguiente (fundido); nada se mueve solo. Con "reducir movimiento" el cambio es instantáneo.
 - Cada fotograma tiene texto alternativo en su idioma y se lee después de la sinopsis, como sección "Fotogramas de la película". El logotipo es el `h1` con el título como texto alternativo.
 - El botón de ojo oculta la tarjeta para ver la imagen completa (Escape la vuelve a mostrar). El texto nunca se oculta solo.
 - Cada idioma es una página real con su `lang`, enlaces de idioma con `lang` y `hreflang`, y enlace "Saltar al contenido".

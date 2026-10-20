@@ -227,9 +227,9 @@ a:hover { text-decoration-thickness: 0.12em; }
   border-radius: 999px;
   cursor: pointer;
 }
-.control-btn:hover { background: var(--guia); }
+@media (hover: hover) { .control-btn:hover { background: var(--guia); } }
 .control-btn[hidden] { display: none; }
-.control-btn svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.control-btn svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .control-btn svg.fill { width: 1.125rem; height: 1.125rem; fill: currentColor; stroke: none; }
 .control-btn svg[hidden] { display: none; }
 
@@ -246,7 +246,7 @@ a:hover { text-decoration-thickness: 0.12em; }
 @media (max-width: 59.99rem) {
   /* Idiomas flotando arriba a la derecha */
   .site-header { position: absolute; top: 0; right: 0; z-index: 3; padding: 1rem; }
-  .card-toggle { display: none; }
+  .card-toggle, .slide-prev, .slide-next { display: none; }
 
   /* La pantalla entera es una tira horizontal: tarjeta + fotogramas + copia para el bucle */
   .layout {
@@ -325,7 +325,6 @@ a:hover { text-decoration-thickness: 0.12em; }
 @media (max-width: 59.99rem) and (prefers-reduced-motion: no-preference) {
   .swipe-hint span { animation: nudge 1.6s ease-in-out 3; }
   @keyframes nudge { 50% { transform: translateX(6px); } }
-}
 }
 
 /* Movimiento reducido: sin fundidos automáticos (el JS tampoco arranca solo) */
